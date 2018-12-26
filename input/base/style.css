@@ -1,0 +1,163 @@
+
+#mainpage{
+	max-width: 900px;
+	float: center;
+    margin-right: auto;
+    margin-left: auto;	
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+header{
+    padding: 10px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+
+
+/* ------------ vertical homepage ------------ */
+
+.sectionheader{
+	margin-top:10px;
+    width: 97%;
+    text-align: right;
+}
+
+.left {
+	float: center;
+    margin-right: auto;
+    margin-left: auto;	
+	margin-top:10px;	
+    margin-bottom:30px;
+}
+
+.right{
+	float: center;
+    margin-right: auto;
+    margin-left: auto;	
+	margin-top:10px;
+    margin-bottom:30px;
+}	
+
+section{
+	float: center;
+    margin-right: auto;
+    margin-left: auto;	
+	margin-top:10px;
+    margin-bottom:30px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+
+/* ------------ horizontal homepage ------------ */
+@media (min-aspect-ratio: 4/3) and (min-width: 930px) {
+	
+    .sectionheader{
+        margin-top:10px;
+        width: 500px;
+        text-align: right;
+    }
+
+    .left {
+		max-width: 430px;
+		float: left;
+		margin-top:10px;
+		margin-left: 0px;	
+        margin-bottom:30px;
+	}
+
+	.right{
+		max-width: 430px;
+		float: right;
+		margin-top:10px;
+		margin-right: 0px;
+        margin-bottom:30px;
+	}	
+
+    section{
+        width: 500px;
+        margin-top:10px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+}
+
+/* --------------- general styling ------------- */
+@font-face {
+    font-family: "Inconsolata";
+    src: url(http://www.npisanti.com/data/Inconsolata-Regular.ttf) format("truetype");
+}
+
+body {
+    background-color: black;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Inconsolata', monospace; 
+    font-weight: 300;
+}
+
+.fill{
+	background-color: #191919;  	
+    padding: 1%;
+}
+
+.center {
+    float: center;
+    margin-right: auto;
+    margin-left: auto;	
+}
+
+ul { 
+    display: block;
+    list-style-type: square;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 20px;
+}
+
+a:link, a:visited, a:active{
+	color: #f77;
+	text-decoration: none;
+}
+
+a:hover, .headerblock a:hover, .thumb a:hover{
+	color: #f33;
+}
+
+::-webkit-scrollbar-thumb:vertical{
+background-color: #ccc;
+height: 100px;
+-webkit-border-radius: 3px;
+}
+ 
+::-webkit-scrollbar-thumb:horizontal{
+background-color: #ccc;
+height: 10px;
+-webkit-border-radius: 3px;
+}
+ 
+::-webkit-scrollbar{
+height: 10px;
+width: 8px;
+background-color: #000;
+}
+
+
+/* responsive aligned images */
+
+.column3 {
+  float: left;
+  width: 32.33%;
+  padding: 0.5%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
