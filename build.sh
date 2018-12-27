@@ -3,7 +3,7 @@
 THUMBSIZE=80
 
 GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
-MASTERINDEX_THUMB="thumbnails/outpost_thumb.jpg"
+MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
 mkdir -p $HTMLDEST 
@@ -118,7 +118,7 @@ do
     title=${title%".html"}
     title=${title//_/ }
 
-    pagefolder="$HTMLDEST/journal/pages/"
+    pagefolder="$HTMLDEST/journal/"
     mkdir -p $pagefolder
     pagepath="$pagefolder/page$page.html"
     
@@ -155,14 +155,14 @@ do
     echo "</section>" >> "$HTMLDEST/journal/$filename"
     echo "</body></html>" >> "$HTMLDEST/journal/$filename" 
     sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$filename" 
-    sed -i -e "s|POSTPAGEURLPLACEHOLDER|pages/page$page.html|g" "$HTMLDEST/journal/$filename" 
+    sed -i -e "s|POSTPAGEURLPLACEHOLDER|page$page.html|g" "$HTMLDEST/journal/$filename" 
         
     # -----------------------------------------------------------------------
     
     # ------------ adds post to page ----------
     echo "<section class=\"center fill\">" >> "$pagepath"
     cat input/journal/$filename >> "$pagepath"
-    echo "<br><div style="text-align:right"><a href="../$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
+    echo "<br><br><div style="text-align:right"><a href="../$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
     echo "</section>" >> "$pagepath"
     # -----------------------------------------
     
@@ -179,15 +179,16 @@ do
         # generate tail of page 
         cat input/base/postpageheader.html >> "$pagepath"
         echo "</body></html>" >> "$pagepath" 
-        sed -i -e "s|style.css|../../style.css|g" "$pagepath" 
+        sed -i -e "s|style.css|../style.css|g" "$pagepath" 
     fi
 done
 
 # generate tail of page for last blog page
 if (("$post" != 0)); then 
+    echo "FINISHING TAIL!!!!"
     cat input/base/postpageheader.html >> "$pagepath"
     echo "</body></html>" >> "$pagepath" 
-    sed -i -e "s|style.css|../../style.css|g" "$pagepath" 
+    sed -i -e "s|style.css|../style.css|g" "$pagepath" 
 fi
 
 # masterindex tail 
@@ -197,17 +198,20 @@ sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/masterindex.html"
 
 # generate navigation pages 
 echo "generating navigation bars..."
-for ((i=1;i<page;i++)); do
+for ((i=1;i<=page;i++)); do
     navigation=""
-    for ((k=1;k<page;k++)); do
+    for ((k=1;k<=page;k++)); do
         if (("$k" == "$i")); then 
             navigation="$navigation<a href=\"page$k.html\">[$k]</a> "
         else
             navigation="$navigation<a href=\"page$k.html\">$k</a> "
         fi
     done
-    sed -i -e "s|NAVIGATION_PLACEHOLDER_TOKEN|$navigation|g" "$HTMLDEST/journal/pages/page$i.html"
+    sed -i -e "s|NAVIGATION_PLACEHOLDER_TOKEN|$navigation|g" "$HTMLDEST/journal/page$i.html"
 done
 echo "...done"
+
+echo "copying and editing first page"
+cp "$HTMLDEST/journal/page1.html" "$HTMLDEST/journal/index.html" 
 
 exit

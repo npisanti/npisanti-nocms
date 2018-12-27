@@ -110,6 +110,12 @@ body {
     margin-left: auto;	
 }
 
+.centerimg {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;	
+}
+
 ul { 
     display: block;
     list-style-type: square;
