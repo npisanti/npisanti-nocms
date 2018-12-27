@@ -6,6 +6,8 @@ GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
 MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
+POSTPERPAGE=7
+
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
@@ -103,7 +105,6 @@ cat input/base/sectionheader.html >> "$HTMLDEST/journal/masterindex.html"
 echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/masterindex.html"
 # --------------------------
 
-postperpage=7
 post=0
 page=1
 lastmonth=13
@@ -173,7 +174,7 @@ do
     echo "<a href="$filename">$year/$month/$day :</a> $title<br>" >> "$HTMLDEST/journal/masterindex.html" 
     
     post=$(( $post +1 ))
-    if (("$post" == "$postperpage")); then 
+    if (("$post" == "$POSTPERPAGE")); then 
         post=0
         page=$(( $page +1 ))
         # generate tail of page 
@@ -185,7 +186,6 @@ done
 
 # generate tail of page for last blog page
 if (("$post" != 0)); then 
-    echo "FINISHING TAIL!!!!"
     cat input/base/postpageheader.html >> "$pagepath"
     echo "</body></html>" >> "$pagepath" 
     sed -i -e "s|style.css|../style.css|g" "$pagepath" 
