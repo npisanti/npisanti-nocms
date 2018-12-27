@@ -2,15 +2,13 @@
 
 THUMBSIZE=80
 
-GENERAL_THUMB="outpost_thumb.jpg"
+GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
+MASTERINDEX_THUMB="thumbnails/outpost_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
-
-#scriptdir=`dirname "$BASH_SOURCE"`
-#echo "scriptdir is $scriptdir"
-#cd $scriptdir
 
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
+mkdir -p $HTMLDEST/journal
 rm $HTMLDEST/*
 
 #make the index page
@@ -77,7 +75,7 @@ do
         echo "</head>" >> "$HTMLDEST/$filename"
         
         echo "<body>" >> "$HTMLDEST/$filename"
-        #cat input/base/headerblock.html >> "$HTMLDEST/$filename"
+        cat input/base/sectionheader.html >> "$HTMLDEST/$filename"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
         cat input/extra/$filename >> "$HTMLDEST/$filename"
         echo "</section>" >> "$HTMLDEST/$filename"
@@ -86,5 +84,130 @@ done
 
 #cp -avr input/data $HTMLDEST/data
 cp input/base/style.css $HTMLDEST/style.css
+
+# -------------------------------------------------------------------------
+# ---------------- MAKES THE JOURNAL --------------------------------------
+# -------------------------------------------------------------------------
+echo "--- REGENERATING JOURNAL ---"
+
+# masterindex head ----------
+echo "<!DOCTYPE html>" >> "$HTMLDEST/journal/masterindex.html"
+echo "<html>" >> "$HTMLDEST/journal/masterindex.html"
+echo "<head>" >> "$HTMLDEST/journal/masterindex.html"
+echo "<title>npisanti.com</title>" >> "$HTMLDEST/journal/masterindex.html"
+cat input/base/head.html >> "$HTMLDEST/journal/masterindex.html"
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/journal/masterindex.html"
+echo "</head>" >> "$HTMLDEST/journal/masterindex.html"
+echo "<body>" >> "$HTMLDEST/journal/masterindex.html"
+cat input/base/sectionheader.html >> "$HTMLDEST/journal/masterindex.html"
+echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/masterindex.html"
+# --------------------------
+
+postperpage=7
+post=0
+page=1
+lastmonth=13
+for f in $(ls -1 input/journal | sort -r)
+do
+    filename=${f##*/}
+    year=${filename:0:4}
+    month=${filename:5:2}
+    day=${filename:8:2}
+    
+    title=${filename:11}
+    title=${title%".html"}
+    title=${title//_/ }
+
+    pagefolder="$HTMLDEST/journal/pages/"
+    mkdir -p $pagefolder
+    pagepath="$pagefolder/page$page.html"
+    
+    #generate corresponding page
+    echo "Processing $filename | post $post | page $page"
+
+    if (("$post" == 0)); then 
+        # generate head of page
+        echo "<!DOCTYPE html>" >> "$pagepath"
+        echo "<html>" >> "$pagepath"
+        echo "<head>" >> "$pagepath"
+        echo "<title>npisanti.com</title>" >> "$pagepath"
+        cat input/base/head.html >> "$pagepath"
+        echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$pagepath"
+        echo "</head>" >> "$pagepath"
+        echo "<body>" >> "$pagepath"
+        cat input/base/postpageheader.html >> "$pagepath"
+    fi 
+
+
+    
+    # ---------------- generate individual page -----------------------------
+    echo "<!DOCTYPE html>" >> "$HTMLDEST/journal/$filename"
+    echo "<html>" >> "$HTMLDEST/journal/$filename"
+    echo "<head>" >> "$HTMLDEST/journal/$filename"
+    echo "<title>npisanti.com</title>" >> "$HTMLDEST/journal/$filename"
+    cat input/base/head.html >> "$HTMLDEST/journal/$filename"
+    echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/journal/$filename"
+    echo "</head>" >> "$HTMLDEST/journal/$filename"
+    echo "<body>" >> "$HTMLDEST/journal/$filename"
+    cat input/base/postheader.html >> "$HTMLDEST/journal/$filename"
+    echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/$filename"
+    cat input/journal/$filename >> "$HTMLDEST/journal/$filename"
+    echo "</section>" >> "$HTMLDEST/journal/$filename"
+    echo "</body></html>" >> "$HTMLDEST/journal/$filename" 
+    sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$filename" 
+    sed -i -e "s|POSTPAGEURLPLACEHOLDER|pages/page$page.html|g" "$HTMLDEST/journal/$filename" 
+        
+    # -----------------------------------------------------------------------
+    
+    # ------------ adds post to page ----------
+    echo "<section class=\"center fill\">" >> "$pagepath"
+    cat input/journal/$filename >> "$pagepath"
+    echo "<br><div style="text-align:right"><a href="../$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
+    echo "</section>" >> "$pagepath"
+    # -----------------------------------------
+    
+    if (("$month" != "$lastmonth")); then
+        echo "<br>" >> "$HTMLDEST/journal/masterindex.html" 
+    fi
+    lastmonth=$month
+    echo "<a href="$filename">$year/$month/$day :</a> $title<br>" >> "$HTMLDEST/journal/masterindex.html" 
+    
+    post=$(( $post +1 ))
+    if (("$post" == "$postperpage")); then 
+        post=0
+        page=$(( $page +1 ))
+        # generate tail of page 
+        cat input/base/postpageheader.html >> "$pagepath"
+        echo "</body></html>" >> "$pagepath" 
+        sed -i -e "s|style.css|../../style.css|g" "$pagepath" 
+    fi
+done
+
+# generate tail of page for last blog page
+if (("$post" != 0)); then 
+    cat input/base/postpageheader.html >> "$pagepath"
+    echo "</body></html>" >> "$pagepath" 
+    sed -i -e "s|style.css|../../style.css|g" "$pagepath" 
+fi
+
+# masterindex tail 
+echo "</section>" >> "$HTMLDEST/journal/masterindex.html"
+echo "</body></html>" >> "$HTMLDEST/journal/masterindex.html" 
+sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/masterindex.html" 
+
+# generate navigation pages 
+echo "generating navigation bars..."
+for ((i=1;i<page;i++)); do
+    navigation=""
+    for ((k=1;k<page;k++)); do
+        if (("$k" == "$i")); then 
+            navigation="$navigation<a href=\"page$k.html\">[$k]</a> "
+        else
+            navigation="$navigation<a href=\"page$k.html\">$k</a> "
+        fi
+    done
+    sed -i -e "s|NAVIGATION_PLACEHOLDER_TOKEN|$navigation|g" "$HTMLDEST/journal/pages/page$i.html"
+done
+echo "...done"
 
 exit
