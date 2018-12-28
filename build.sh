@@ -6,8 +6,9 @@ GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
 MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
-POSTPERPAGE=6
+POSTPERPAGE=7
 
+cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
@@ -133,7 +134,7 @@ do
     month=${filename:5:2}
     day=${filename:8:2}
     
-    title=${filename:11}
+    title=${filename:12}
     title=${title%".html"}
     title=${title//_/ }
 
@@ -181,7 +182,7 @@ do
     # ------------ adds post to page ----------
     echo "<section class=\"center fill\">" >> "$pagepath"
     cat input/journal/$filename >> "$pagepath"
-    echo "<br><br><div style="text-align:right"><a href="../$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
+    echo "<br><br><div style="text-align:right"><a href="$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
     echo "</section>" >> "$pagepath"
     # -----------------------------------------
     
