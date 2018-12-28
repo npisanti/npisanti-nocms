@@ -11,12 +11,14 @@ POSTPERPAGE=7
 cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
+rm $HTMLDEST/*.html
+
 mkdir -p $HTMLDEST/journal
-rm $HTMLDEST/*
+
 
 #make the index page
 echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
-echo "<html>" >> $HTMLDEST/index.html#!/bin/bash
+echo "<html>" >> $HTMLDEST/index.html
 
 THUMBSIZE=80
 
@@ -124,7 +126,7 @@ echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/masterindex.html"
 # --------------------------
 
 post=0
-page=1
+page=0
 lastmonth=13
 lastyear=1999
 for f in $(ls -1 input/journal | sort -r)
@@ -143,9 +145,11 @@ do
     pagepath="$pagefolder/page$page.html"
     
     #generate corresponding page
-    echo "Processing $filename | post $post | page $page"
-
     if (("$post" == 0)); then 
+        page=$(( $page +1 ))
+        echo "- generating page $page"
+        pagepath="$pagefolder/page$page.html"
+        
         # generate head of page
         echo "<!DOCTYPE html>" >> "$pagepath"
         echo "<html>" >> "$pagepath"
@@ -158,7 +162,7 @@ do
         cat input/base/postpageheader.html >> "$pagepath"
     fi 
 
-
+    echo "Processing $filename | post $post | page $page"
     
     # ---------------- generate individual page -----------------------------
     echo "<!DOCTYPE html>" >> "$HTMLDEST/journal/$filename"
@@ -197,7 +201,6 @@ do
     post=$(( $post +1 ))
     if (("$post" == "$POSTPERPAGE")); then 
         post=0
-        page=$(( $page +1 ))
         # generate tail of page 
         cat input/base/postpageheader.html >> "$pagepath"
         echo "</body></html>" >> "$pagepath" 
@@ -327,7 +330,7 @@ echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/masterindex.html"
 # --------------------------
 
 post=0
-page=1
+page=0
 lastmonth=13
 for f in $(ls -1 input/journal | sort -r)
 do
@@ -348,6 +351,9 @@ do
     echo "Processing $filename | post $post | page $page"
 
     if (("$post" == 0)); then 
+        page=$(( $page +1 ))
+        pagepath="$pagefolder/page$page.html"
+        echo "page path $pagepath"
         # generate head of page
         echo "<!DOCTYPE html>" >> "$pagepath"
         echo "<html>" >> "$pagepath"
@@ -359,8 +365,6 @@ do
         echo "<body>" >> "$pagepath"
         cat input/base/postpageheader.html >> "$pagepath"
     fi 
-
-
     
     # ---------------- generate individual page -----------------------------
     echo "<!DOCTYPE html>" >> "$HTMLDEST/journal/$filename"
@@ -398,7 +402,6 @@ do
     post=$(( $post +1 ))
     if (("$post" == "$POSTPERPAGE")); then 
         post=0
-        page=$(( $page +1 ))
         # generate tail of page 
         cat input/base/postpageheader.html >> "$pagepath"
         echo "</body></html>" >> "$pagepath" 

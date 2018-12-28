@@ -126,6 +126,10 @@ ul {
     padding-left: 20px;
 }
 
+video { 
+    outline: none;
+}
+
 a:link, a:visited, a:active{
 	color: #f77;
 	text-decoration: none;
