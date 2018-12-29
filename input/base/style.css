@@ -62,7 +62,7 @@ section{
     }
 
     .left {
-		max-width: 430px;
+		max-width: 440px;
 		float: left;
 		margin-top:10px;
 		margin-left: 0px;	
@@ -70,7 +70,7 @@ section{
 	}
 
 	.right{
-		max-width: 430px;
+		max-width: 440px;
 		float: right;
 		margin-top:10px;
 		margin-right: 0px;
