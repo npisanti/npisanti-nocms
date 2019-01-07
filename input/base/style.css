@@ -47,8 +47,7 @@ section{
     margin-left: auto;	
 	margin-top:10px;
     margin-bottom:30px;
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
 }
 
 
@@ -80,8 +79,7 @@ section{
     section{
         width: 500px;
         margin-top:10px;
-        text-align: justify;
-        text-justify: inter-word;
+        text-align: left;
     }
 }
 
