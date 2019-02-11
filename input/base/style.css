@@ -91,14 +91,14 @@ section{
 
 body {
     background-color: black;
-    color: #fff;
+    color: #ccc;
     font-size: 14px;
     font-family: 'Inconsolata', monospace; 
     font-weight: 300;
 }
 
 .fill{
-	background-color: #191919;  	
+	background-color: #111617;  	
     padding: 1%;
 }
 
@@ -129,12 +129,11 @@ video {
 }
 
 a:link, a:visited, a:active{
-	color: #f77;
-	text-decoration: none;
+	color: #fff;
 }
 
 a:hover, .headerblock a:hover, .thumb a:hover{
-	color: #f33;
+	color: #f11;
 }
 
 ::-webkit-scrollbar-thumb:vertical{
