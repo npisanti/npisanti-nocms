@@ -71,14 +71,14 @@ section{
 	}	
 
     .sectionheader{
+        width: 600px;
         margin-top:10px;
-        width: 700px;
         text-align: right;
     }
 
 
     section{
-        width: 700px;
+        width: 600px;
         margin-top:10px;
         text-align: left;
     }
