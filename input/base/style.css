@@ -19,12 +19,6 @@ header{
 
 /* ------------ vertical homepage ------------ */
 
-.sectionheader{
-	margin-top:10px;
-    width: 97%;
-    text-align: right;
-}
-
 .left {
 	float: center;
     margin-right: auto;
@@ -41,6 +35,12 @@ header{
     margin-bottom:30px;
 }	
 
+.sectionheader{
+	margin-top:10px;
+    width: 97%;
+    text-align: right;
+}
+
 section{
 	float: center;
     margin-right: auto;
@@ -54,12 +54,6 @@ section{
 /* ------------ horizontal homepage ------------ */
 @media (min-aspect-ratio: 4/3) and (min-width: 930px) {
 	
-    .sectionheader{
-        margin-top:10px;
-        width: 500px;
-        text-align: right;
-    }
-
     .left {
 		max-width: 440px;
 		float: left;
@@ -76,8 +70,15 @@ section{
         margin-bottom:30px;
 	}	
 
+    .sectionheader{
+        margin-top:10px;
+        width: 700px;
+        text-align: right;
+    }
+
+
     section{
-        width: 500px;
+        width: 700px;
         margin-top:10px;
         text-align: left;
     }
