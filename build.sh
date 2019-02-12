@@ -1,37 +1,23 @@
 #!/bin/bash
 
-THUMBSIZE=80
-
-GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
+GENERAL_THUMB="thumbnails/junk_rituals_thumb.jpg"
 MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
-POSTPERPAGE=7
+THUMBSIZE=80
+
+POSTPERPAGE=8
 
 cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
-rm $HTMLDEST/*.html
-
 mkdir -p $HTMLDEST/journal
-
+rm $HTMLDEST/*
 
 #make the index page
 echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
 echo "<html>" >> $HTMLDEST/index.html
 
-THUMBSIZE=80
-
-GENERAL_THUMB="thumbnails/outpost_thumb.jpg"
-MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
-HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
-
-POSTPERPAGE=8
-
-mkdir -p $HTMLDEST 
-rm -rf $HTMLDEST/journal
-mkdir -p $HTMLDEST/journal
-rm $HTMLDEST/*
 
 #make the index page
 echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
