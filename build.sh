@@ -35,6 +35,8 @@ cat input/base/index.html >> $HTMLDEST/index.html
 echo "</body>" >> $HTMLDEST/index.html
 echo "</html>" >> $HTMLDEST/index.html
 
+cat input/base/rssbase.xml >> $HTMLDEST/journal/rss.xml
+
 #generate pages
 inputlist=input/base/thumbs.list
 while read line
@@ -116,8 +118,11 @@ echo "<section class=\"center fill\">" >> "$HTMLDEST/journal/masterindex.html"
 
 post=0
 page=0
-lastmonth=13
-lastyear=1999
+monthcursor=13
+yearcursor=1999
+lastyear=2014
+lastbuild="never"
+
 for f in $(ls -1 input/journal | sort -r)
 do
     filename=${f##*/}
@@ -180,16 +185,34 @@ do
     echo "<br><br><div style="text-align:right"><a href="$filename">posted on $year/$month/$day</a> </div>" >> "$pagepath"
     echo "</section>" >> "$pagepath"
     # -----------------------------------------
+
+    # ------------ adds post to rss for page 1 ----------
+    if (("$page" == 1)); then 
+        RFC822TIME=$(date --date=$month/$day/$year -R)
+        if (("$post" == 0)); then 
+            lastyear="$year"
+            lastbuild="$RFC822TIME"
+        fi
+        echo -e "\t\t<item>" >> $HTMLDEST/journal/rss.xml
+        echo -e "\t\t\t<title>$title</title>" >> $HTMLDEST/journal/rss.xml
+        echo -e "\t\t\t<description>$title</description>" >> $HTMLDEST/journal/rss.xml
+        echo -e "\t\t\t<pubDate>$RFC822TIME</pubDate>" >> $HTMLDEST/journal/rss.xml
+        echo -e "\t\t\t<guid>http://npisanti.com/journal/$filename</guid>" >> $HTMLDEST/journal/rss.xml
+        echo -e "\t\t</item>" >> $HTMLDEST/journal/rss.xml
     
-    if [ "$month" -ne "$lastmonth" ]; then
+    fi
+    # -----------------------------------------
+
+    
+    if [ "$month" -ne "$monthcursor" ]; then
         echo "<br>" >> "$HTMLDEST/journal/masterindex.html" 
     fi
-    lastmonth=$month
+    monthcursor=$month
     
-    if [ "$year" -ne "$lastyear" ]; then
+    if [ "$year" -ne "$yearcursor" ]; then
         echo "<br>" >> "$HTMLDEST/journal/masterindex.html" 
     fi
-    lastyear=$year
+    yearcursor=$year
 
     
     echo "<a href="$filename">$year/$month/$day :</a> $title<br>" >> "$HTMLDEST/journal/masterindex.html" 
@@ -217,6 +240,12 @@ fi
 echo "</section>" >> "$HTMLDEST/journal/masterindex.html"
 echo "</body></html>" >> "$HTMLDEST/journal/masterindex.html" 
 sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/masterindex.html" 
+
+# rss tail 
+echo -e "\t</channel>" >> $HTMLDEST/journal/rss.xml
+echo "</rss>" >> $HTMLDEST/journal/rss.xml
+sed -i -e "s|LASTYEARPLACEHOLDER|$lastyear|g" "$HTMLDEST/journal/rss.xml"  
+sed -i -e "s|LASTBUILDPLACEHOLDER|$lastbuild|g" "$HTMLDEST/journal/rss.xml"  
 
 # generate navigation pages 
 echo "generating navigation bars..."
