@@ -7,6 +7,7 @@ HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 THUMBSIZE=80
 
 POSTPERPAGE=8
+RSSMAXPOSTS=6
 
 cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
@@ -193,13 +194,16 @@ do
             lastyear="$year"
             lastbuild="$RFC822TIME"
         fi
-        echo -e "\t\t<item>" >> $HTMLDEST/journal/rss.xml
-        echo -e "\t\t\t<title>$title</title>" >> $HTMLDEST/journal/rss.xml
-        echo -e "\t\t\t<description>$title</description>" >> $HTMLDEST/journal/rss.xml
-        echo -e "\t\t\t<pubDate>$RFC822TIME</pubDate>" >> $HTMLDEST/journal/rss.xml
-        echo -e "\t\t\t<guid>http://npisanti.com/journal/$filename</guid>" >> $HTMLDEST/journal/rss.xml
-        echo -e "\t\t</item>" >> $HTMLDEST/journal/rss.xml
-    
+        if [ "$post" -lt "$RSSMAXPOSTS" ]; then 
+            echo -e "\t\t<item>" >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t\t<title>$title</title>" >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t\t<description><![CDATA[" >> $HTMLDEST/journal/rss.xml
+            cat input/journal/$filename >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t\t]]></description>" >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t\t<pubDate>$RFC822TIME</pubDate>" >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t\t<guid>http://npisanti.com/journal/$filename</guid>" >> $HTMLDEST/journal/rss.xml
+            echo -e "\t\t</item>" >> $HTMLDEST/journal/rss.xml
+        fi
     fi
     # -----------------------------------------
 
