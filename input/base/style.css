@@ -96,6 +96,7 @@ body {
     font-size: 14px;
     font-family: 'Inconsolata', monospace; 
     font-weight: 300;
+    line-height: 1.2em;
 }
 
 .fill{
@@ -131,6 +132,9 @@ video {
 
 a:link, a:visited, a:active{
 	color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 1px;
 }
 
 a:hover, .headerblock a:hover, .thumb a:hover{
