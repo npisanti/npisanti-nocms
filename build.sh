@@ -15,12 +15,7 @@ rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
 rm $HTMLDEST/*
 
-#make the index page
-echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
-echo "<html>" >> $HTMLDEST/index.html
-
-
-#make the index page
+# makes the index page -------------------------------------------------
 echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
 echo "<html>" >> $HTMLDEST/index.html
 echo "<head>" >> $HTMLDEST/index.html
@@ -35,6 +30,24 @@ echo "<body>" >> $HTMLDEST/index.html
 cat input/base/index.html >> $HTMLDEST/index.html
 echo "</body>" >> $HTMLDEST/index.html
 echo "</html>" >> $HTMLDEST/index.html
+
+# make the real index page -------------------------------------------
+echo "<!DOCTYPE html>" >> $HTMLDEST/multiv.html
+echo "<html>" >> $HTMLDEST/multiv.html
+echo "<head>" >> $HTMLDEST/multiv.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/multiv.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/multiv.html
+cat input/base/head.html >> $HTMLDEST/multiv.html
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/multiv.html
+echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/multiv.html
+echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/multiv.html
+echo "</head>" >> $HTMLDEST/multiv.html
+echo "<body>" >> $HTMLDEST/multiv.html
+cat input/base/multiv.html >> $HTMLDEST/multiv.html
+echo "</body>" >> $HTMLDEST/multiv.html
+echo "</html>" >> $HTMLDEST/multiv.html
+
+
 
 cat input/base/rssbase.xml >> $HTMLDEST/journal/rss.xml
 
