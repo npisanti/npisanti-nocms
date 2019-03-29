@@ -32,20 +32,20 @@ echo "</body>" >> $HTMLDEST/index.html
 echo "</html>" >> $HTMLDEST/index.html
 
 # make the real index page -------------------------------------------
-echo "<!DOCTYPE html>" >> $HTMLDEST/multiv.html
-echo "<html>" >> $HTMLDEST/multiv.html
-echo "<head>" >> $HTMLDEST/multiv.html
-echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/multiv.html
-echo "<title>npisanti.com</title>" >> $HTMLDEST/multiv.html
-cat input/base/head.html >> $HTMLDEST/multiv.html
-echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/multiv.html
-echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/multiv.html
-echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/multiv.html
-echo "</head>" >> $HTMLDEST/multiv.html
-echo "<body>" >> $HTMLDEST/multiv.html
-cat input/base/multiv.html >> $HTMLDEST/multiv.html
-echo "</body>" >> $HTMLDEST/multiv.html
-echo "</html>" >> $HTMLDEST/multiv.html
+echo "<!DOCTYPE html>" >> $HTMLDEST/xedni.html
+echo "<html>" >> $HTMLDEST/xedni.html
+echo "<head>" >> $HTMLDEST/xedni.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/xedni.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/xedni.html
+cat input/base/head.html >> $HTMLDEST/xedni.html
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/xedni.html
+echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/xedni.html
+echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/xedni.html
+echo "</head>" >> $HTMLDEST/xedni.html
+echo "<body>" >> $HTMLDEST/xedni.html
+cat input/base/xedni.html >> $HTMLDEST/xedni.html
+echo "</body>" >> $HTMLDEST/xedni.html
+echo "</html>" >> $HTMLDEST/xedni.html
 
 
 
