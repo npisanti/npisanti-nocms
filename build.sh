@@ -15,7 +15,7 @@ rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
 rm $HTMLDEST/*
 
-# makes the index page -------------------------------------------------
+# makes the index page -----------------------------------------------
 echo "<!DOCTYPE html>" >> $HTMLDEST/index.html
 echo "<html>" >> $HTMLDEST/index.html
 echo "<head>" >> $HTMLDEST/index.html
@@ -111,9 +111,9 @@ done
 #cp -avr input/data $HTMLDEST/data
 cp input/base/style.css $HTMLDEST/style.css
 
-# -------------------------------------------------------------------------
-# ---------------- MAKES THE JOURNAL --------------------------------------
-# -------------------------------------------------------------------------
+# --------------------------------------------------------------------
+# ---------------- MAKES THE JOURNAL ---------------------------------
+# --------------------------------------------------------------------
 echo "--- REGENERATING JOURNAL ---"
 
 # masterindex head ----------
@@ -173,7 +173,7 @@ do
 
     echo "Processing $filename | post $post | page $page"
     
-    # ---------------- generate individual page -----------------------------
+    # ---------------- generate individual page ----------------------
     echo "<!DOCTYPE html>" >> "$HTMLDEST/journal/$filename"
     echo "<html>" >> "$HTMLDEST/journal/$filename"
     echo "<head>" >> "$HTMLDEST/journal/$filename"
@@ -191,7 +191,7 @@ do
     sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$filename" 
     sed -i -e "s|POSTPAGEURLPLACEHOLDER|page$page.html|g" "$HTMLDEST/journal/$filename" 
         
-    # -----------------------------------------------------------------------
+    # ----------------------------------------------------------------
     
     # ------------ adds post to page ----------
     echo "<section class=\"center fill\">" >> "$pagepath"

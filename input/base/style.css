@@ -1,90 +1,4 @@
 
-#mainpage{
-	max-width: 900px;
-	float: center;
-    margin-right: auto;
-    margin-left: auto;	
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-header{
-    padding: 10px;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-
-
-/* ------------ vertical homepage ------------ */
-
-.left {
-	float: center;
-    margin-right: auto;
-    margin-left: auto;	
-	margin-top:10px;	
-    margin-bottom:30px;
-}
-
-.right{
-	float: center;
-    margin-right: auto;
-    margin-left: auto;	
-	margin-top:10px;
-    margin-bottom:30px;
-}	
-
-.sectionheader{
-	margin-top:10px;
-    width: 97%;
-    text-align: right;
-}
-
-section{
-	float: center;
-    margin-right: auto;
-    margin-left: auto;	
-	margin-top:10px;
-    margin-bottom:30px;
-    text-align: left;
-}
-
-
-/* ------------ horizontal homepage ------------ */
-@media (min-aspect-ratio: 4/3) and (min-width: 930px) {
-	
-    .left {
-		max-width: 440px;
-		float: left;
-		margin-top:10px;
-		margin-left: 0px;	
-        margin-bottom:30px;
-	}
-
-	.right{
-		max-width: 440px;
-		float: right;
-		margin-top:10px;
-		margin-right: 0px;
-        margin-bottom:30px;
-	}	
-
-    .sectionheader{
-        width: 600px;
-        margin-top:10px;
-        text-align: right;
-    }
-
-
-    section{
-        width: 600px;
-        margin-top:10px;
-        text-align: left;
-    }
-}
-
-/* --------------- general styling ------------- */
 @font-face {
     font-family: "Inconsolata";
     src: url(http://www.npisanti.com/data/Inconsolata-Regular.ttf) format("truetype");
@@ -93,15 +7,23 @@ section{
 body {
     background-color: black;
     color: #ccc;
-    font-size: 14px;
+    font-size: 16px;
     font-family: 'Inconsolata', monospace; 
     font-weight: 300;
     line-height: 1.2em;
+    text-align: left;
+}
+
+section{
+	margin-top:10px;
+    margin-bottom:30px;
+    max-width:600px;
 }
 
 .fill{
 	background-color: #111617;  	
     padding: 1%;
+    margin-bottom:20px;
 }
 
 .center {
@@ -110,11 +32,16 @@ body {
     margin-left: auto;	
 }
 
-.centerimg {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;	
+.contentwidth {
+    max-width:600px;
 }
+
+.sectionheader{
+	margin-top:10px;
+    text-align: right;
+}
+
+/* some tags styling */
 
 ul { 
     display: block;
@@ -130,6 +57,8 @@ video {
     outline: none;
 }
 
+/* hyperlinks */
+
 a:link, a:visited, a:active{
 	color: #fff;
     text-decoration: none;
@@ -140,6 +69,8 @@ a:link, a:visited, a:active{
 a:hover, .headerblock a:hover, .thumb a:hover{
 	color: #f11;
 }
+
+/* sccrollbar */
 
 ::-webkit-scrollbar-thumb:vertical{
     background-color: #ccc;
@@ -159,8 +90,19 @@ a:hover, .headerblock a:hover, .thumb a:hover{
     background-color: #000;
 }
 
+/* for responsive aligned images */
 
-/* responsive aligned images */
+.centerimg {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;	
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 
 .column3 {
     float: left;
@@ -172,10 +114,4 @@ a:hover, .headerblock a:hover, .thumb a:hover{
     float: left;
     width: 49%;
     padding: 0.5%;
-}
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
 }
