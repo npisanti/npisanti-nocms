@@ -10,7 +10,12 @@ while true; do
 done
 
 read -p "Username: " ftpuser
+read -s -p "Password: " ftppass
 
-ncftpput -R -v -u "$ftpuser" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/journal/
+ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/journal/
+
+echo "uploading index page..."
+
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/index.html
 
 exit

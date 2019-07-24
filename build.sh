@@ -262,9 +262,9 @@ for ((i=1;i<=page;i++)); do
 
     for ((k=1;k<=page;k++)); do
         if (("$k" == "$i")); then 
-            navigation="$navigation<a href=\"page$k.html\">[$k]</a> "
+            navigation="$navigation<a href=\"http://npisanti.com/journal/page$k.html\">[$k]</a> "
         else
-            navigation="$navigation<a href=\"page$k.html\">$k</a> "
+            navigation="$navigation<a href=\"http://npisanti.com/journal/page$k.html\">$k</a> "
         fi
     done
 
