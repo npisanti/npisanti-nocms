@@ -27,7 +27,6 @@ echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/works.
 echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/works.html
 echo "</head>" >> $HTMLDEST/works.html
 echo "<body>" >> $HTMLDEST/works.html
-cat input/base/postpageheader.html >> $HTMLDEST/works.html
 cat input/sections/works.html >> $HTMLDEST/works.html
 echo "</body>" >> $HTMLDEST/works.html
 echo "</html>" >> $HTMLDEST/works.html
@@ -48,6 +47,20 @@ cat input/base/postpageheader.html >> $HTMLDEST/xedni.html
 cat input/sections/xedni.html >> $HTMLDEST/xedni.html
 echo "</body>" >> $HTMLDEST/xedni.html
 echo "</html>" >> $HTMLDEST/xedni.html
+
+# generate contact 
+echo "Processing contact file..."
+echo "<!DOCTYPE html>" >> $HTMLDEST/contact.html
+echo "<html>" >> $HTMLDEST/contact.html
+echo "<head>" >> $HTMLDEST/contact.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/contact.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/contact.html
+cat input/base/head.html >> $HTMLDEST/contact.html
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/contact.html
+echo "</head>" >> $HTMLDEST/contact.html
+echo "<body>" >> $HTMLDEST/contact.html
+cat input/sections/contact.html >> $HTMLDEST/contact.html
+echo "</body></html>" >> $HTMLDEST/contact.html
 
 
 cat input/base/rssbase.xml >> $HTMLDEST/journal/rss.xml
@@ -84,30 +97,6 @@ do
         echo "</body></html>" >> "$HTMLDEST/$filename"
         
 done < "$inputlist"
-
-
-# make the about / contact / etc pages
-for f in input/extra/*
-do
-    filename=${f##*/}
-    #generate corresponding page
-        echo "Processing $filename file..."
-        echo "<!DOCTYPE html>" >> "$HTMLDEST/$filename"
-        echo "<html>" >> "$HTMLDEST/$filename"
-        echo "<head>" >> "$HTMLDEST/$filename"
-        echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$filename"
-        echo "<title>npisanti.com</title>" >> "$HTMLDEST/$filename"
-        cat input/base/head.html >> "$HTMLDEST/$filename"
-        echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$filename"
-        echo "</head>" >> "$HTMLDEST/$filename"
-        
-        echo "<body>" >> "$HTMLDEST/$filename"
-        cat input/base/postpageheader.html >> "$HTMLDEST/$filename"
-        echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
-        cat input/extra/$filename >> "$HTMLDEST/$filename"
-        echo "</section>" >> "$HTMLDEST/$filename"
-        echo "</body></html>" >> "$HTMLDEST/$filename"
-done
 
 #cp -avr input/data $HTMLDEST/data
 cp input/base/style.css $HTMLDEST/style.css
@@ -269,6 +258,7 @@ sed -i -e "s|LASTBUILDPLACEHOLDER|$lastbuild|g" "$HTMLDEST/journal/rss.xml"
 echo "generating navigation bars..."
 for ((i=1;i<=page;i++)); do
     navigation=""
+    navigation="$navigation<a href=\"journalindex.html\">all</a> "
 
     for ((k=1;k<=page;k++)); do
         if (("$k" == "$i")); then 
@@ -278,17 +268,16 @@ for ((i=1;i<=page;i++)); do
         fi
     done
 
-    navigation="$navigation<a href=\"journalindex.html\">all</a> \|\|\|  "
-
+    navigation="$navigation\&nbsp;\&nbsp;"
+    
     if [ "$i" -ne "1" ]; then 
         prev=$(( $i - 1 ))
-        navigation="$navigation<a href=\"page$prev.html\">prev</a> "
+        navigation="$navigation<a href=\"http://npisanti.com/journal/page$prev.html\">prev</a> "
     fi
     if [ "$i" -ne "$page" ]; then 
         next=$(( $i + 1 ))
-        navigation="$navigation<a href=\"page$next.html\">next</a> "
+        navigation="$navigation<a href=\"http://npisanti.com/journal/page$next.html\">next</a> "
     fi
-    
     
     sed -i -e "s|NAVIGATION_PLACEHOLDER_TOKEN|$navigation|g" "$HTMLDEST/journal/page$i.html"
 done
