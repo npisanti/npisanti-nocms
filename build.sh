@@ -15,21 +15,22 @@ rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
 rm $HTMLDEST/*
 
-# makes the index page -----------------------------------------------
-echo "<!DOCTYPE html>" >> $HTMLDEST/works.html
-echo "<html>" >> $HTMLDEST/works.html
-echo "<head>" >> $HTMLDEST/works.html
-echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/works.html
-echo "<title>npisanti.com</title>" >> $HTMLDEST/works.html
-cat input/base/head.html >> $HTMLDEST/works.html
+# makes the things page -----------------------------------------------
+echo "<!DOCTYPE html>" >> $HTMLDEST/things.html
+echo "<html>" >> $HTMLDEST/things.html
+echo "<head>" >> $HTMLDEST/things.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/things.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/things.html
+cat input/base/head.html >> $HTMLDEST/things.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/index.html
-echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/works.html
-echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/works.html
-echo "</head>" >> $HTMLDEST/works.html
-echo "<body>" >> $HTMLDEST/works.html
-cat input/sections/works.html >> $HTMLDEST/works.html
-echo "</body>" >> $HTMLDEST/works.html
-echo "</html>" >> $HTMLDEST/works.html
+echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/things.html
+echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/things.html
+echo "</head>" >> $HTMLDEST/things.html
+echo "<body>" >> $HTMLDEST/things.html
+cat input/base/thingsheader.html >> $HTMLDEST/things.html
+cat input/sections/things.html >> $HTMLDEST/things.html
+echo "</body>" >> $HTMLDEST/things.html
+echo "</html>" >> $HTMLDEST/things.html
 
 # make the real index page -------------------------------------------
 echo "<!DOCTYPE html>" >> $HTMLDEST/xedni.html
@@ -43,7 +44,7 @@ echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/xedni.
 echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/xedni.html
 echo "</head>" >> $HTMLDEST/xedni.html
 echo "<body>" >> $HTMLDEST/xedni.html
-cat input/base/postpageheader.html >> $HTMLDEST/xedni.html
+cat input/base/thingsheader.html >> $HTMLDEST/xedni.html
 cat input/sections/xedni.html >> $HTMLDEST/xedni.html
 echo "</body>" >> $HTMLDEST/xedni.html
 echo "</html>" >> $HTMLDEST/xedni.html
@@ -89,7 +90,8 @@ do
         echo "</head>" >> "$HTMLDEST/$filename"
         
         echo "<body>" >> "$HTMLDEST/$filename"
-        cat input/base/postpageheader.html >> "$HTMLDEST/$filename"
+        cat input/base/thingsheader.html >> "$HTMLDEST/$filename"
+        sed -i -e "s|things|[ things ]|g" "$HTMLDEST/$filename"
         #cat input/base/headerblock.html >> "$HTMLDEST/$filename"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
         cat input/sections/$filename >> "$HTMLDEST/$filename"
@@ -258,7 +260,7 @@ sed -i -e "s|LASTBUILDPLACEHOLDER|$lastbuild|g" "$HTMLDEST/journal/rss.xml"
 echo "generating navigation bars..."
 for ((i=1;i<=page;i++)); do
     navigation=""
-    navigation="$navigation<a href=\"journalindex.html\">all</a> "
+    navigation="$navigation<a href=\"http://npisanti.com/journal/journalindex.html\">all</a> "
 
     for ((k=1;k<=page;k++)); do
         if (("$k" == "$i")); then 
