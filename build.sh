@@ -91,8 +91,6 @@ do
         
         echo "<body>" >> "$HTMLDEST/$filename"
         cat input/base/thingsheader.html >> "$HTMLDEST/$filename"
-        sed -i -e "s|things|[ things ]|g" "$HTMLDEST/$filename"
-        #cat input/base/headerblock.html >> "$HTMLDEST/$filename"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
         cat input/sections/$filename >> "$HTMLDEST/$filename"
         echo "</section>" >> "$HTMLDEST/$filename"
