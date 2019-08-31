@@ -15,22 +15,22 @@ rm -rf $HTMLDEST/journal
 mkdir -p $HTMLDEST/journal
 rm $HTMLDEST/*
 
-# makes the things page -----------------------------------------------
-echo "<!DOCTYPE html>" >> $HTMLDEST/things.html
-echo "<html>" >> $HTMLDEST/things.html
-echo "<head>" >> $HTMLDEST/things.html
-echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/things.html
-echo "<title>npisanti.com</title>" >> $HTMLDEST/things.html
-cat input/base/head.html >> $HTMLDEST/things.html
+# makes the tools page -----------------------------------------------
+echo "<!DOCTYPE html>" >> $HTMLDEST/tools.html
+echo "<html>" >> $HTMLDEST/tools.html
+echo "<head>" >> $HTMLDEST/tools.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/tools.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/tools.html
+cat input/base/head.html >> $HTMLDEST/tools.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/index.html
-echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/things.html
-echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/things.html
-echo "</head>" >> $HTMLDEST/things.html
-echo "<body>" >> $HTMLDEST/things.html
-cat input/base/thingsheader.html >> $HTMLDEST/things.html
-cat input/sections/things.html >> $HTMLDEST/things.html
-echo "</body>" >> $HTMLDEST/things.html
-echo "</html>" >> $HTMLDEST/things.html
+echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/tools.html
+echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/tools.html
+echo "</head>" >> $HTMLDEST/tools.html
+echo "<body>" >> $HTMLDEST/tools.html
+cat input/base/toolsheader.html >> $HTMLDEST/tools.html
+cat input/sections/tools.html >> $HTMLDEST/tools.html
+echo "</body>" >> $HTMLDEST/tools.html
+echo "</html>" >> $HTMLDEST/tools.html
 
 # make the real index page -------------------------------------------
 echo "<!DOCTYPE html>" >> $HTMLDEST/xedni.html
@@ -44,7 +44,7 @@ echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/xedni.
 echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/xedni.html
 echo "</head>" >> $HTMLDEST/xedni.html
 echo "<body>" >> $HTMLDEST/xedni.html
-cat input/base/thingsheader.html >> $HTMLDEST/xedni.html
+cat input/base/toolsheader.html >> $HTMLDEST/xedni.html
 cat input/sections/xedni.html >> $HTMLDEST/xedni.html
 echo "</body>" >> $HTMLDEST/xedni.html
 echo "</html>" >> $HTMLDEST/xedni.html
@@ -90,7 +90,7 @@ do
         echo "</head>" >> "$HTMLDEST/$filename"
         
         echo "<body>" >> "$HTMLDEST/$filename"
-        cat input/base/thingsheader.html >> "$HTMLDEST/$filename"
+        cat input/base/toolsheader.html >> "$HTMLDEST/$filename"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
         cat input/sections/$filename >> "$HTMLDEST/$filename"
         echo "</section>" >> "$HTMLDEST/$filename"
