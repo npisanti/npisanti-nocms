@@ -28,7 +28,7 @@ echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/tools.h
 echo "</head>" >> $HTMLDEST/tools.html
 echo "<body>" >> $HTMLDEST/tools.html
 cat input/base/toolsheader.html >> $HTMLDEST/tools.html
-cat input/sections/tools.html >> $HTMLDEST/tools.html
+cat input/pages/tools.html >> $HTMLDEST/tools.html
 echo "</body>" >> $HTMLDEST/tools.html
 echo "</html>" >> $HTMLDEST/tools.html
 
@@ -45,7 +45,7 @@ echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/xedni.h
 echo "</head>" >> $HTMLDEST/xedni.html
 echo "<body>" >> $HTMLDEST/xedni.html
 cat input/base/toolsheader.html >> $HTMLDEST/xedni.html
-cat input/sections/xedni.html >> $HTMLDEST/xedni.html
+cat input/pages/xedni.html >> $HTMLDEST/xedni.html
 echo "</body>" >> $HTMLDEST/xedni.html
 echo "</html>" >> $HTMLDEST/xedni.html
 
@@ -60,7 +60,7 @@ cat input/base/head.html >> $HTMLDEST/contact.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/contact.html
 echo "</head>" >> $HTMLDEST/contact.html
 echo "<body>" >> $HTMLDEST/contact.html
-cat input/sections/contact.html >> $HTMLDEST/contact.html
+cat input/pages/contact.html >> $HTMLDEST/contact.html
 echo "</body></html>" >> $HTMLDEST/contact.html
 
 
@@ -92,7 +92,7 @@ do
         echo "<body>" >> "$HTMLDEST/$filename"
         cat input/base/toolsheader.html >> "$HTMLDEST/$filename"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
-        cat input/sections/$filename >> "$HTMLDEST/$filename"
+        cat input/pages/$filename >> "$HTMLDEST/$filename"
         echo "</section>" >> "$HTMLDEST/$filename"
         echo "</body></html>" >> "$HTMLDEST/$filename"
         
