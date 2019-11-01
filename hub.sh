@@ -51,8 +51,9 @@ GENERAL_THUMB="thumbnails/junk_rituals_thumb.jpg"
 MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output/hub
 
-THUMBSIZE=80
+datapath="../../data/"
 
+THUMBSIZE=80
 POSTPERPAGE=8
 RSSMAXPOSTS=6
 
@@ -131,7 +132,7 @@ do
             echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$pagepath"
             echo "</head>" >> "$pagepath"
             echo "<body>" >> "$pagepath"
-            cat input/hub/feedheader.html >> "$pagepath"
+            cat input/hub/base/feedheader.html >> "$pagepath"
         fi 
 
         echo "Processing $postpath | post $post | page $page"
@@ -151,6 +152,7 @@ do
             # generate tail of page 
             cat input/base/postpagefooter.html >> "$pagepath"
             echo "</body></html>" >> "$pagepath" 
+            sed -i -e "s|DATAPATH|$datapath|g" "$pagepath" 
         fi
     fi
 done < "$inputlist"
@@ -159,7 +161,7 @@ done < "$inputlist"
 if (("$post" != 0)); then 
     cat input/base/postpagefooter.html >> "$pagepath"
     echo "</body></html>" >> "$pagepath" 
-    #sed -i -e "s|style.css|../style.css|g" "$pagepath" 
+    sed -i -e "s|DATAPATH|$datapath|g" "$pagepath" 
 fi
 
 echo "FINISHED BUILDING FEED"
@@ -218,7 +220,7 @@ for d in input/hub/*/ ; do
             echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$pagepath"
             echo "</head>" >> "$pagepath"
             echo "<body>" >> "$pagepath"
-            cat input/hub/userheader.html >> "$pagepath"
+            cat input/hub/base/userheader.html >> "$pagepath"
         fi 
 
         echo "Processing $postpath | post $post | page $page"
@@ -239,6 +241,7 @@ for d in input/hub/*/ ; do
             # generate tail of page 
             cat input/base/postpagefooter.html >> "$pagepath"
             echo "</body></html>" >> "$pagepath" 
+            sed -i -e "s|DATAPATH|$datapath|g" "$pagepath" 
         fi
     done 
 
@@ -246,7 +249,7 @@ for d in input/hub/*/ ; do
     if (("$post" != 0)); then 
         cat input/base/postpagefooter.html >> "$pagepath"
         echo "</body></html>" >> "$pagepath" 
-        #sed -i -e "s|style.css|../style.css|g" "$pagepath" 
+        sed -i -e "s|DATAPATH|$datapath|g" "$pagepath" 
     fi
 
     build_navigation_footer $dirname $page yes
@@ -277,7 +280,7 @@ for d in input/hub/*/ ; do
     echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/archive.html"
     echo "</head>" >> "$HTMLDEST/$dirname/archive.html"
     echo "<body>" >> "$HTMLDEST/$dirname/archive.html"
-    cat input/hub/userheader.html >> "$HTMLDEST/$dirname/archive.html"
+    cat input/hub/base/userheader.html >> "$HTMLDEST/$dirname/archive.html"
     echo "<section class=\"center fill\"><br>" >> "$HTMLDEST/$dirname/archive.html"
     
     echo "$dirname's archive<br><br>" >> "$HTMLDEST/$dirname/archive.html"
@@ -312,13 +315,14 @@ for d in input/hub/*/ ; do
         echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/$postlink"
         echo "</head>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<body>" >> "$HTMLDEST/$dirname/$postlink"
-        cat input/hub/postheader.html >> "$HTMLDEST/$dirname/$postlink"
+        cat input/hub/base/postheader.html >> "$HTMLDEST/$dirname/$postlink"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$dirname/$postlink"
         cat input/hub/$dirname/$postpath >> "$HTMLDEST/$dirname/$postlink"
         echo "</section>" >> "$HTMLDEST/$dirname/$postlink"
         echo "</body></html>" >> "$HTMLDEST/$dirname/$postlink" 
         #sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/$dirname/$postlink" 
-        sed -i -e "s|HUBUSERNAME|$dirname|g" "$HTMLDEST/$dirname/$postlink" 
+        sed -i -e "s|HUBUSERNAME|$dirname|g" "$HTMLDEST/$dirname/$postlink"         
+        sed -i -e "s|DATAPATH|$datapath|g" "$HTMLDEST/$dirname/$postlink" 
 
         post=$(( $post +1 ))
         if (("$post" == "$POSTPERPAGE")); then 
@@ -333,9 +337,8 @@ for d in input/hub/*/ ; do
 done
 
 echo "copyng redirect"
-cp input/hub/redirect.html $HTMLDEST/index.html
+cp input/hub/base/redirect.html $HTMLDEST/index.html
 
 exit
-
 
 # memo : sobstitute relative links in hub index.html or redirect to feed/index.html
