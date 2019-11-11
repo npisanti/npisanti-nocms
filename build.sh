@@ -106,6 +106,34 @@ echo "<body>" >> $HTMLDEST/contact.html
 cat input/pages/contact.html >> $HTMLDEST/contact.html
 echo "</body></html>" >> $HTMLDEST/contact.html
 
+# generate tcatnoc 
+echo "Processing tcatnoc file..."
+echo "<!DOCTYPE html>" >> $HTMLDEST/tcatnoc.html
+echo "<html>" >> $HTMLDEST/tcatnoc.html
+echo "<head>" >> $HTMLDEST/tcatnoc.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/tcatnoc.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/tcatnoc.html
+cat input/base/head.html >> $HTMLDEST/tcatnoc.html
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/tcatnoc.html
+echo "</head>" >> $HTMLDEST/tcatnoc.html
+echo "<body>" >> $HTMLDEST/tcatnoc.html
+cat input/pages/tcatnoc.html >> $HTMLDEST/tcatnoc.html
+echo "</body></html>" >> $HTMLDEST/tcatnoc.html
+
+# generate channels page 
+echo "Processing channels file..."
+echo "<!DOCTYPE html>" >> $HTMLDEST/channels.html
+echo "<html>" >> $HTMLDEST/channels.html
+echo "<head>" >> $HTMLDEST/channels.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/channels.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/channels.html
+cat input/base/head.html >> $HTMLDEST/channels.html
+echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/channels.html
+echo "</head>" >> $HTMLDEST/channels.html
+echo "<body>" >> $HTMLDEST/channels.html
+cat input/pages/channels.html >> $HTMLDEST/channels.html
+echo "</body></html>" >> $HTMLDEST/channels.html
+
 
 #generate pages
 inputlist=input/base/thumbs.list
@@ -139,7 +167,6 @@ do
         
         sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/$filename"
 done < "$inputlist"
-
 
 # --------------------------------------------------------------------
 # ---------------- MAKES THE FEED ------------------------------------
@@ -237,6 +264,7 @@ echo "TWEAKING SITE INDEX"
 
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/index.html" 
 sed -i -e "s|../tools|tools|g" "$HTMLDEST/index.html" 
+sed -i -e "s|../channels|channels|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../contact|contact|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../rss|rss|g" "$HTMLDEST/index.html" 
 sed -i -e "s|href=\"page|href=\"main/page|g" "$HTMLDEST/index.html" 
@@ -475,8 +503,17 @@ done
 sed -i -e "s|SITEROOTPA/||g" "$HTMLDEST/index.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tools.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/contact.html" 
+sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tcatnoc.html" 
+sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/channels.html" 
 
 # absolute urls to RSS 
 sed -i -e "s|SITEROOTPATH|http://npisanti.com|g" "$HTMLDEST/rss.xml" 
+
+# --------------------------------------------------------------------
+# ---------------- RETROCOMPATIBILITY --------------------------------
+# --------------------------------------------------------------------
+
+mkdir -p $HTMLDEST/journal 
+cp $HTMLDEST/rss.xml $HTMLDEST/journal/xml 
 
 exit
