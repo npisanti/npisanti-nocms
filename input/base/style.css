@@ -1,6 +1,6 @@
 
 @font-face {
-    font-family: "Inconsolata";
+    font-family: "Inconsolata-load";
     src: url(http://www.npisanti.com/data/Inconsolata-Regular.ttf) format("truetype");
 }
 
@@ -8,7 +8,7 @@ body {
     background-color: black;
     color: #ccc;
     font-size: 16px;
-    font-family: 'Inconsolata', monospace; 
+    font-family: 'Inconsolata-load', 'Inconsolata', 'Consolas', 'Fira Code Light', 'Lucida Console', 'Monaco', 'Ubuntu Mono','Iosevka Regular', monospace; 
     font-weight: 300;
     line-height: 1.2em;
     text-align: left;
