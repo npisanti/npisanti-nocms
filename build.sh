@@ -514,6 +514,6 @@ sed -i -e "s|SITEROOTPATH|http://npisanti.com|g" "$HTMLDEST/rss.xml"
 # --------------------------------------------------------------------
 
 mkdir -p $HTMLDEST/journal 
-cp $HTMLDEST/rss.xml $HTMLDEST/journal/xml 
+cp $HTMLDEST/rss.xml $HTMLDEST/journal/rss.xml 
 
 exit
