@@ -281,7 +281,7 @@ cp "$HTMLDEST/main/page1.html" "$HTMLDEST/main/index.html"
 echo "TWEAKING SITE INDEX"
 
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/index.html" 
-sed -i -e "s|../index|index|g" "$HTMLDEST/index.html" 
+sed -i -e "s|href=\"../index.html\"|href=\"index.html\"|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../tools|tools|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../channels|channels|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../contact|contact|g" "$HTMLDEST/index.html" 
