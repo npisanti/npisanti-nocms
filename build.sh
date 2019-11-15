@@ -61,14 +61,20 @@ RSSMAXPOSTS=6
 cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
-
 rm -rf $HTMLDEST/main
-mkdir -p $HTMLDEST/main
-rm $HTMLDEST/*
+
 echo "REMOVING FOLDERS"
 for d in input/journal/*/ ; do
     dirname=$(echo $d | cut -d '/' -f3)
     rm -rf "$HTMLDEST/$dirname"
+done
+
+rm $HTMLDEST/*
+
+mkdir -p $HTMLDEST/main
+
+for d in input/journal/*/ ; do
+    dirname=$(echo $d | cut -d '/' -f3)
     mkdir -p "$HTMLDEST/$dirname"
 done
 
@@ -134,7 +140,7 @@ echo "<body>" >> $HTMLDEST/channels.html
 cat input/pages/channels.html >> $HTMLDEST/channels.html
 echo "</body></html>" >> $HTMLDEST/channels.html
 
-
+echo "--- generating pages ---"
 #generate pages
 inputlist=input/base/thumbs.list
 while read line
@@ -145,7 +151,7 @@ do
 
         #generate corresponding page
         filename=$link
-        echo "Processing $filename file..."
+        #echo "Processing $filename file..."
         echo "<!DOCTYPE html>" >> "$HTMLDEST/$filename"
         echo "<html>" >> "$HTMLDEST/$filename"
         
@@ -224,7 +230,7 @@ do
             cat input/journal/feedheader.html >> "$pagepath"
         fi 
 
-        echo "Processing $postpath | post $post | page $page"
+        #echo "Processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
         echo "<section class=\"center fill\">" >> "$pagepath"
@@ -306,7 +312,7 @@ for d in input/journal/*/ ; do
         #generate corresponding page
         if (("$post" == 0)); then 
             page=$(( $page +1 ))
-            echo "- generating page $page"
+            #echo "- generating page $page"
             pagepath="$pagefolder/page$page.html"
             
             # generate head of page
@@ -320,10 +326,9 @@ for d in input/journal/*/ ; do
             echo "</head>" >> "$pagepath"
             echo "<body>" >> "$pagepath"
             cat input/journal/channelheader.html >> "$pagepath"
-            echo "ADDED CHANNEL "
         fi 
 
-        echo "Processing $postpath | post $post | page $page"
+        #echo "Processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
         echo "<section class=\"center fill\">" >> "$pagepath"
