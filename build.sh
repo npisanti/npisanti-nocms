@@ -41,6 +41,22 @@ build_navigation_footer(){
     echo "...done"    
 }
 
+add_og_image(){
+    
+    filesource="$1"
+    filedestination="$2"
+    
+    POST_OG_THUMB=`cat $filesource | grep og_thumb=`
+    
+    if [ ! -z "$POST_OG_THUMB" -a "$POST_OG_THUMB" != " " ]; then 
+        OG_THUMBFILE=$(echo $POST_OG_THUMB | cut -d '=' -f2)
+        echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$OG_THUMBFILE\" />" >> "$filedestination"            
+    else
+        echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$filedestination"
+    fi
+}
+
+
 # --------------------------------------------------------------------
 # ---------------- SCRIPT --------------------------------------------
 # --------------------------------------------------------------------
@@ -94,7 +110,7 @@ echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/tools.h
 echo "</head>" >> $HTMLDEST/tools.html
 echo "<body>" >> $HTMLDEST/tools.html
 cat input/base/toolsheader.html >> $HTMLDEST/tools.html
-cat input/pages/tools.html >> $HTMLDEST/tools.html
+cat input/base/tools.html >> $HTMLDEST/tools.html
 echo "</body>" >> $HTMLDEST/tools.html
 echo "</html>" >> $HTMLDEST/tools.html
 
@@ -109,7 +125,7 @@ cat input/base/head.html >> $HTMLDEST/contact.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/contact.html
 echo "</head>" >> $HTMLDEST/contact.html
 echo "<body>" >> $HTMLDEST/contact.html
-cat input/pages/contact.html >> $HTMLDEST/contact.html
+cat input/base/contact.html >> $HTMLDEST/contact.html
 echo "</body></html>" >> $HTMLDEST/contact.html
 
 # generate tcatnoc 
@@ -120,10 +136,10 @@ echo "<head>" >> $HTMLDEST/tcatnoc.html
 echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/tcatnoc.html
 echo "<title>npisanti.com</title>" >> $HTMLDEST/tcatnoc.html
 cat input/base/head.html >> $HTMLDEST/tcatnoc.html
-echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/tcatnoc.html
+# no og...
 echo "</head>" >> $HTMLDEST/tcatnoc.html
 echo "<body>" >> $HTMLDEST/tcatnoc.html
-cat input/pages/tcatnoc.html >> $HTMLDEST/tcatnoc.html
+cat input/base/tcatnoc.html >> $HTMLDEST/tcatnoc.html
 echo "</body></html>" >> $HTMLDEST/tcatnoc.html
 
 # generate channels page 
@@ -137,42 +153,39 @@ cat input/base/head.html >> $HTMLDEST/channels.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/channels.html
 echo "</head>" >> $HTMLDEST/channels.html
 echo "<body>" >> $HTMLDEST/channels.html
-cat input/pages/channels.html >> $HTMLDEST/channels.html
+cat input/base/channels.html >> $HTMLDEST/channels.html
 echo "</body></html>" >> $HTMLDEST/channels.html
 
 echo "--- generating pages ---"
 #generate pages
-inputlist=input/base/thumbs.list
-while read line
-do
-        name=$(echo $line | cut -d ';' -f1)
-        image=$(echo $line | cut -d ';' -f2)
-        link=$(echo $line | cut -d ';' -f3)
 
-        #generate corresponding page
-        filename=$link
-        #echo "Processing $filename file..."
-        echo "<!DOCTYPE html>" >> "$HTMLDEST/$filename"
-        echo "<html>" >> "$HTMLDEST/$filename"
-        
-        echo "<head>" >> "$HTMLDEST/$filename"
-        echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$filename"
-        echo "<title>$name</title>" >> "$HTMLDEST/$filename"
-        cat input/base/head.html >> "$HTMLDEST/$filename"
-        echo "<meta property=\"og:image\" content=\"$image\" />" >> "$HTMLDEST/$filename"
-        echo "<meta property=\"og:image:width\" content=\"230\" />" >> "$HTMLDEST/$filename"
-        echo "<meta property=\"og:image:height\" content=\"230\" />" >> "$HTMLDEST/$filename"
-        echo "</head>" >> "$HTMLDEST/$filename"
-        
-        echo "<body>" >> "$HTMLDEST/$filename"
-        cat input/base/toolsheader.html >> "$HTMLDEST/$filename"
-        echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
-        cat input/pages/$filename >> "$HTMLDEST/$filename"
-        echo "</section>" >> "$HTMLDEST/$filename"
-        echo "</body></html>" >> "$HTMLDEST/$filename"
-        
-        sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/$filename"
-done < "$inputlist"
+for f in input/pages/*.html; 
+do
+    filename=${f:12}
+    title=${filename%".html"}
+
+    #echo "Processing $filename file..."
+    echo "<!DOCTYPE html>" >> "$HTMLDEST/$filename"
+    echo "<html>" >> "$HTMLDEST/$filename"
+    
+    echo "<head>" >> "$HTMLDEST/$filename"
+    echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$filename"
+    echo "<title>[ $title ]</title>" >> "$HTMLDEST/$filename"
+    cat input/base/head.html >> "$HTMLDEST/$filename"
+    
+    add_og_image "input/pages/$filename" "$HTMLDEST/$filename"
+
+    echo "</head>" >> "$HTMLDEST/$filename"
+    
+    echo "<body>" >> "$HTMLDEST/$filename"
+    cat input/base/singlepageheader.html >> "$HTMLDEST/$filename"
+    echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
+    cat input/pages/$filename >> "$HTMLDEST/$filename"
+    echo "</section>" >> "$HTMLDEST/$filename"
+    echo "</body></html>" >> "$HTMLDEST/$filename"
+    
+    sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/$filename"
+done
 
 # --------------------------------------------------------------------
 # ---------------- MAKES THE FEED ------------------------------------
@@ -227,7 +240,7 @@ do
             echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$pagepath"
             echo "</head>" >> "$pagepath"
             echo "<body>" >> "$pagepath"
-            cat input/journal/feedheader.html >> "$pagepath"
+            cat input/base/feedheader.html >> "$pagepath"
         fi 
 
         #echo "Processing $postpath | post $post | page $page"
@@ -325,7 +338,7 @@ for d in input/journal/*/ ; do
             echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$pagepath"
             echo "</head>" >> "$pagepath"
             echo "<body>" >> "$pagepath"
-            cat input/journal/channelheader.html >> "$pagepath"
+            cat input/base/channelheader.html >> "$pagepath"
         fi 
 
         #echo "Processing $postpath | post $post | page $page"
@@ -382,7 +395,7 @@ for d in input/journal/*/ ; do
     echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/archive.html"
     echo "</head>" >> "$HTMLDEST/$dirname/archive.html"
     echo "<body>" >> "$HTMLDEST/$dirname/archive.html"
-    cat input/journal/channelheader.html >> "$HTMLDEST/$dirname/archive.html"
+    cat input/base/channelheader.html >> "$HTMLDEST/$dirname/archive.html"
     echo "<section class=\"center fill\"><br>" >> "$HTMLDEST/$dirname/archive.html"
     
     echo "$dirname's archive<br><br>" >> "$HTMLDEST/$dirname/archive.html"
@@ -415,18 +428,11 @@ for d in input/journal/*/ ; do
         echo "<title>[ $title ]</title>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/base/head.html >> "$HTMLDEST/$dirname/$postlink"
         
-        POST_OG_THUMB=`cat input/journal/$dirname/$postpath | grep og_thumb=`
-        
-        if [ ! -z "$POST_OG_THUMB" -a "$POST_OG_THUMB" != " " ]; then 
-            OG_THUMBFILE=$(echo $POST_OG_THUMB | cut -d '=' -f2)
-            echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$OG_THUMBFILE\" />" >> "$HTMLDEST/$dirname/$postlink"            
-        else
-            echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/$postlink"
-        fi
+        add_og_image "input/journal/$dirname/$postpath" "$HTMLDEST/$dirname/$postlink"
         
         echo "</head>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<body>" >> "$HTMLDEST/$dirname/$postlink"
-        cat input/journal/postheader.html >> "$HTMLDEST/$dirname/$postlink"
+        cat input/base/postheader.html >> "$HTMLDEST/$dirname/$postlink"
         echo "<section class=\"center fill\">" >> "$HTMLDEST/$dirname/$postlink"
         cat input/journal/$dirname/$postpath >> "$HTMLDEST/$dirname/$postlink"
         echo "</section>" >> "$HTMLDEST/$dirname/$postlink"
