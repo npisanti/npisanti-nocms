@@ -45,8 +45,8 @@ build_navigation_footer(){
 # ---------------- SCRIPT --------------------------------------------
 # --------------------------------------------------------------------
 
-GENERAL_THUMB="thumbnails/junk_rituals_thumb.jpg"
-MASTERINDEX_THUMB="thumbnails/junk_rituals_thumb.jpg"
+GENERAL_THUMB="avatars/avatar_og.png"
+MASTERINDEX_THUMB="avatars/avatar_og.png"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
 THUMBSIZE=80
@@ -241,7 +241,6 @@ do
             # generate tail of page 
             cat input/base/postpagefooter.html >> "$pagepath"
             echo "</body></html>" >> "$pagepath" 
-            sed -i -e "s|TH|$datapath|g" "$pagepath" 
         fi
     fi
 done < "$inputlist"
@@ -263,6 +262,7 @@ cp "$HTMLDEST/main/page1.html" "$HTMLDEST/main/index.html"
 echo "TWEAKING SITE INDEX"
 
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/index.html" 
+sed -i -e "s|../index|index|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../tools|tools|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../channels|channels|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../contact|contact|g" "$HTMLDEST/index.html" 
@@ -407,9 +407,18 @@ for d in input/journal/*/ ; do
         echo "<html>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<head>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<title>[ $dirname ]</title>" >> "$HTMLDEST/$dirname/$postlink"
+        echo "<title>[ $title ]</title>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/base/head.html >> "$HTMLDEST/$dirname/$postlink"
-        echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/$postlink"
+        
+        POST_OG_THUMB=`cat input/journal/$dirname/$postpath | grep og_thumb=`
+        
+        if [ ! -z "$POST_OG_THUMB" -a "$POST_OG_THUMB" != " " ]; then 
+            OG_THUMBFILE=$(echo $POST_OG_THUMB | cut -d '=' -f2)
+            echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$OG_THUMBFILE\" />" >> "$HTMLDEST/$dirname/$postlink"            
+        else
+            echo "    <meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> "$HTMLDEST/$dirname/$postlink"
+        fi
+        
         echo "</head>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<body>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/journal/postheader.html >> "$HTMLDEST/$dirname/$postlink"
@@ -479,7 +488,6 @@ sed -i -e "s|LASTBUILDPLACEHOLDER|$lastbuild|g" "$HTMLDEST/rss.xml"
 
 echo "FINISHED BUILDING RSS"
 
-
 # --------------------------------------------------------------------
 # ---------------- DATAPATHS -----------------------------------------
 # --------------------------------------------------------------------
@@ -496,11 +504,10 @@ done
 
 for f in $(ls -1 "$HTMLDEST/main" | sort -r)
 do
-    # why the TH is lost???
-    sed -i -e "s|SITEROOTPA|..|g" "$HTMLDEST/main/$f" 
+    sed -i -e "s|SITEROOTPATH|..|g" "$HTMLDEST/main/$f" 
 done
 
-sed -i -e "s|SITEROOTPA/||g" "$HTMLDEST/index.html" 
+sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/index.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tools.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/contact.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tcatnoc.html" 
