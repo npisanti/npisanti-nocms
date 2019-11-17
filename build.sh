@@ -9,7 +9,7 @@ build_navigation_footer(){
     numpage="$2"
     archive_enable="$3"
 
-    echo "generating navigation bars..."
+    #echo "generating navigation bars..."
     for ((i=1;i<=numpage;i++)); do
         navigation=""
         
@@ -38,7 +38,7 @@ build_navigation_footer(){
         
         sed -i -e "s|NAVIGATION_PLACEHOLDER_TOKEN|$navigation|g" "$navfold/page$i.html"
     done
-    echo "...done"    
+    #echo "...done"    
 }
 
 add_og_image(){
@@ -79,7 +79,7 @@ mkdir -p $HTMLDEST
 rm -rf $HTMLDEST/journal
 rm -rf $HTMLDEST/main
 
-echo "REMOVING FOLDERS"
+echo "cleaning folders..."
 for d in input/journal/*/ ; do
     dirname=$(echo $d | cut -d '/' -f3)
     rm -rf "$HTMLDEST/$dirname"
@@ -115,7 +115,7 @@ echo "</body>" >> $HTMLDEST/tools.html
 echo "</html>" >> $HTMLDEST/tools.html
 
 # generate contact 
-echo "Processing contact file..."
+echo "processing contact file..."
 echo "<!DOCTYPE html>" >> $HTMLDEST/contact.html
 echo "<html>" >> $HTMLDEST/contact.html
 echo "<head>" >> $HTMLDEST/contact.html
@@ -129,7 +129,7 @@ cat input/base/contact.html >> $HTMLDEST/contact.html
 echo "</body></html>" >> $HTMLDEST/contact.html
 
 # generate tcatnoc 
-echo "Processing tcatnoc file..."
+echo "processing tcatnoc file..."
 echo "<!DOCTYPE html>" >> $HTMLDEST/tcatnoc.html
 echo "<html>" >> $HTMLDEST/tcatnoc.html
 echo "<head>" >> $HTMLDEST/tcatnoc.html
@@ -143,7 +143,7 @@ cat input/base/tcatnoc.html >> $HTMLDEST/tcatnoc.html
 echo "</body></html>" >> $HTMLDEST/tcatnoc.html
 
 # generate channels page 
-echo "Processing channels file..."
+echo "processing channels file..."
 echo "<!DOCTYPE html>" >> $HTMLDEST/channels.html
 echo "<html>" >> $HTMLDEST/channels.html
 echo "<head>" >> $HTMLDEST/channels.html
@@ -156,7 +156,7 @@ echo "<body>" >> $HTMLDEST/channels.html
 cat input/base/channels.html >> $HTMLDEST/channels.html
 echo "</body></html>" >> $HTMLDEST/channels.html
 
-echo "--- generating pages ---"
+echo "---- generating pages ----"
 #generate pages
 
 for f in input/pages/*.html; 
@@ -164,7 +164,7 @@ do
     filename=${f:12}
     title=${filename%".html"}
 
-    #echo "Processing $filename file..."
+    #echo "processing $filename file..."
     echo "<!DOCTYPE html>" >> "$HTMLDEST/$filename"
     echo "<html>" >> "$HTMLDEST/$filename"
     
@@ -190,7 +190,7 @@ done
 # --------------------------------------------------------------------
 # ---------------- MAKES THE FEED ------------------------------------
 # --------------------------------------------------------------------
-echo "--- REGENERATING FEED ---"
+echo "---- generating main feed ----"
 
 post=0
 page=0
@@ -227,7 +227,7 @@ do
         #generate corresponding page
         if (("$post" == 0)); then 
             page=$(( $page +1 ))
-            echo "- generating page $page"
+            echo "   - generating page $page"
             pagepath="$pagefolder/page$page.html"
             
             # generate head of page
@@ -243,7 +243,7 @@ do
             cat input/base/feedheader.html >> "$pagepath"
         fi 
 
-        #echo "Processing $postpath | post $post | page $page"
+        #echo "processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
         echo "<section class=\"center fill\">" >> "$pagepath"
@@ -271,14 +271,14 @@ if (("$post" != 0)); then
     sed -i -e "s|DATAPATH|$datapath|g" "$pagepath" 
 fi
 
-echo "FINISHED BUILDING FEED"
+#echo "--- finished building main feed ---"
 
 build_navigation_footer "$HTMLDEST/main" $page
 
 #echo "copying and editing first page"
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/main/index.html" 
 
-echo "TWEAKING SITE INDEX"
+echo "tweaking site index..."
 
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/index.html" 
 sed -i -e "s|href=\"../index.html\"|href=\"index.html\"|g" "$HTMLDEST/index.html" 
@@ -341,7 +341,7 @@ for d in input/journal/*/ ; do
             cat input/base/channelheader.html >> "$pagepath"
         fi 
 
-        #echo "Processing $postpath | post $post | page $page"
+        #echo "processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
         echo "<section class=\"center fill\">" >> "$pagepath"
@@ -453,7 +453,7 @@ for d in input/journal/*/ ; do
     echo "</body></html>" >> "$HTMLDEST/$dirname/archive.html"
 done
 
-echo "BUILDING RSS..."
+echo "---- building RSS ----"
 
 cat input/base/rssbase.xml >> $HTMLDEST/rss.xml
 
@@ -497,7 +497,7 @@ echo "</rss>" >> $HTMLDEST/rss.xml
 sed -i -e "s|LASTYEARPLACEHOLDER|$lastyear|g" "$HTMLDEST/rss.xml"  
 sed -i -e "s|LASTBUILDPLACEHOLDER|$lastbuild|g" "$HTMLDEST/rss.xml"  
 
-echo "FINISHED BUILDING RSS"
+echo "   - finished building RSS"
 
 # --------------------------------------------------------------------
 # ---------------- DATAPATHS -----------------------------------------
