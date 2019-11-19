@@ -23,10 +23,21 @@ done
 echo "uploading main"
 ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html "~/htdocs/npisanti-nocms/html_output/main/"
 
-echo "uploading index page..."
+echo "uploading basic pages..."
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/index.html
 
-echo "uploading channels page..."
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/channels.html
+
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/contact.html
+
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/tcatnoc.html
+
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/tools.html
+
+echo "uploading pages"
+for f in input/pages/* ; do
+    page=$(echo $f | cut -d '/' -f3)
+    ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html "~/htdocs/npisanti-nocms/html_output/$page"
+done
 
 exit
