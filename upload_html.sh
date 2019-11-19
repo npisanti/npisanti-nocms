@@ -40,4 +40,8 @@ for f in input/pages/* ; do
     ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html "~/htdocs/npisanti-nocms/html_output/$page"
 done
 
+echo "uploading RSS"
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/rss.xml
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html/journal ~/htdocs/npisanti-nocms/html_output/journal/rss.xml
+
 exit
