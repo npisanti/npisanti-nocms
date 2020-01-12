@@ -66,12 +66,7 @@ MASTERINDEX_THUMB="avatars/avatar_og.png"
 HTMLDEST=/home/$USER/htdocs/npisanti-nocms/html_output
 
 THUMBSIZE=80
-POSTPERPAGE=8
-RSSMAXPOSTS=6
-
-THUMBSIZE=80
-
-POSTPERPAGE=8
+POSTPERPAGE=6
 RSSMAXPOSTS=6
 
 cd ~/htdocs/npisanti-nocms
