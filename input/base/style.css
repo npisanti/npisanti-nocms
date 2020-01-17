@@ -14,40 +14,28 @@ body {
     text-align: left;
 }
 
-section{
-	margin-top:10px;
+header {
+    max-width:620px;
     margin-bottom:30px;
-    max-width:620px;
+    margin-top:30px;
 }
 
-.contentwidth {
+section{
     max-width:620px;
-}
-
-.fill{
-	background-color: #111617;  	
+	margin-top:10px;
     margin-bottom:20px;
+	background-color: #111617;  	
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
-.center {
-    float: center;
-    margin-right: auto;
-    margin-left: auto;	
-}
-
-.headerspace {
-    margin-top:30px;
-}
-
-.sectionheader{
+footer{
+    max-width:620px;
     text-align: right;
+    margin-bottom:30px
 }
-
-/* some tags styling */
 
 ul { 
     display: block;
@@ -63,8 +51,6 @@ video {
     outline: none;
 }
 
-/* hyperlinks */
-
 a:link, a:visited, a:active{
 	color: #fff;
     text-decoration: none;
@@ -76,21 +62,11 @@ a:hover, .headerblock a:hover, .thumb a:hover{
 	color: #f11;
 }
 
-/* sccrollbar */
-
-::-webkit-scrollbar{
-    height: 10px;
-    width: 8px;
-    background-color: #111617;
+.center {
+    float: center;
+    margin-right: auto;
+    margin-left: auto;	
 }
-
-::-webkit-scrollbar-thumb{
-    height: 10px;
-    width: 8px;
-    background-color: #ccc;
-}
-
-/* for responsive aligned images */
 
 .centerimg {
     display: block;
