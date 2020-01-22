@@ -34,6 +34,8 @@ ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisa
 
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/tools.html
 
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/style.css
+
 echo "uploading pages"
 for f in input/pages/* ; do
     page=$(echo $f | cut -d '/' -f3)

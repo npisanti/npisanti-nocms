@@ -174,7 +174,7 @@ do
     
     echo "<body>" >> "$HTMLDEST/$filename"
     cat input/base/singlepageheader.html >> "$HTMLDEST/$filename"
-    echo "<section class=\"center fill\">" >> "$HTMLDEST/$filename"
+    echo "<section>" >> "$HTMLDEST/$filename"
     cat input/pages/$filename >> "$HTMLDEST/$filename"
     echo "</section>" >> "$HTMLDEST/$filename"
     echo "</body></html>" >> "$HTMLDEST/$filename"
@@ -241,7 +241,7 @@ do
         #echo "processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
-        echo "<section class=\"center fill\">" >> "$pagepath"
+        echo "<section>" >> "$pagepath"
         cat $postpath >> "$pagepath"
 
         echo "<br><br><div style=\"text-align:right\"><a href=\"../$user/$pagelink\">posted</a> in <a href=\"../$user/index.html\">$user</a></div>" >> "$pagepath"
@@ -339,7 +339,7 @@ for d in input/journal/*/ ; do
         #echo "processing $postpath | post $post | page $page"
         
         # ------------ adds post to page ----------
-        echo "<section class=\"center fill\">" >> "$pagepath"
+        echo "<section>" >> "$pagepath"
         cat "input/journal/$dirname/$postpath" >> "$pagepath"
 
         echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">posted</a> in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
@@ -391,7 +391,7 @@ for d in input/journal/*/ ; do
     echo "</head>" >> "$HTMLDEST/$dirname/archive.html"
     echo "<body>" >> "$HTMLDEST/$dirname/archive.html"
     cat input/base/channelheader.html >> "$HTMLDEST/$dirname/archive.html"
-    echo "<section class=\"center fill\"><br>" >> "$HTMLDEST/$dirname/archive.html"
+    echo "<section><br>" >> "$HTMLDEST/$dirname/archive.html"
     
     echo "$dirname's archive<br><br>" >> "$HTMLDEST/$dirname/archive.html"
     
@@ -428,7 +428,7 @@ for d in input/journal/*/ ; do
         echo "</head>" >> "$HTMLDEST/$dirname/$postlink"
         echo "<body>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/base/postheader.html >> "$HTMLDEST/$dirname/$postlink"
-        echo "<section class=\"center fill\">" >> "$HTMLDEST/$dirname/$postlink"
+        echo "<section>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/journal/$dirname/$postpath >> "$HTMLDEST/$dirname/$postlink"
         echo "</section>" >> "$HTMLDEST/$dirname/$postlink"
         echo "</body></html>" >> "$HTMLDEST/$dirname/$postlink" 

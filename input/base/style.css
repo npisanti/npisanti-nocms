@@ -5,34 +5,31 @@
 }
 
 body {
+    margin: 0 auto;
+    max-width:620px;
     background-color: black;
     color: #ccc;
     font-size: 16px;
-    font-family: 'Inconsolata-load', 'Inconsolata', 'Consolas', 'Fira Code Light', 'Lucida Console', 'Monaco', 'Ubuntu Mono','Iosevka Regular', monospace; 
+    font-family: 'Inconsolata-load', 'Inconsolata', 'Consolas', 'Lucida Console', 'Monaco', 'Ubuntu Mono','Iosevka Regular', monospace; 
     font-weight: 300;
     line-height: 1.2em;
     text-align: left;
 }
 
-header {
-    max-width:620px;
-    margin-bottom:30px;
-    margin-top:30px;
+header { 
+	margin-top:20px;
+    margin-bottom:20px; 
+    padding-left: 6px;
 }
 
 section{
-    max-width:620px;
 	margin-top:10px;
     margin-bottom:20px;
 	background-color: #111617;  	
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 10px 15px;
 }
 
 footer{
-    max-width:620px;
     text-align: right;
     margin-bottom:30px
 }
@@ -40,10 +37,7 @@ footer{
 ul { 
     display: block;
     list-style-type: square;
-    margin-top: 1em;
-    margin-bottom: 1 em;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 1em 0 0 1em;
     padding-left: 20px;
 }
 
@@ -53,9 +47,6 @@ video {
 
 a:link, a:visited, a:active{
 	color: #fff;
-    text-decoration: none;
-    border-bottom: 1px dotted #fff;
-    padding-bottom: 1px;
 }
 
 a:hover, .headerblock a:hover, .thumb a:hover{
@@ -64,8 +55,7 @@ a:hover, .headerblock a:hover, .thumb a:hover{
 
 .center {
     float: center;
-    margin-right: auto;
-    margin-left: auto;	
+    margin: 0 auto;
 }
 
 .centerimg {
