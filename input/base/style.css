@@ -1,6 +1,6 @@
 
 @font-face {
-    font-family: "Inconsolata-load";
+    font-family: "load";
     src: url(http://www.npisanti.com/data/Inconsolata-Regular.ttf) format("truetype");
 }
 
@@ -10,7 +10,7 @@ body {
     background-color: black;
     color: #ccc;
     font-size: 16px;
-    font-family: 'Inconsolata-load', 'Inconsolata', 'Consolas', 'Lucida Console', 'Monaco', 'Ubuntu Mono','Iosevka Regular', monospace; 
+    font-family: 'load', 'Inconsolata', monospace; 
     font-weight: 300;
     line-height: 1.2em;
     text-align: left;
@@ -41,43 +41,14 @@ ul {
     padding-left: 20px;
 }
 
-video { 
-    outline: none;
-}
+video {  outline: none; }
 
-a:link, a:visited, a:active{
-	color: #fff;
-}
+img { width:100%; }
 
-a:hover, .headerblock a:hover, .thumb a:hover{
-	color: #f11;
-}
+a:link, a:visited, a:active{ color: #fff; }
+a:hover, .headerblock a:hover, .thumb a:hover{ color: #f11; }
 
 .center {
     float: center;
     margin: 0 auto;
-}
-
-.centerimg {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;	
-}
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.column3 {
-    float: left;
-    width: 32.33%;
-    padding: 0.5%;
-}
-
-.column2 {
-    float: left;
-    width: 49%;
-    padding: 0.5%;
 }
