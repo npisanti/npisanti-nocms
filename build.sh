@@ -213,7 +213,7 @@ do
         title=${title%".html"}
         title=${title//_/ }
         
-        pagelink=${filename:12}
+        pagelink=$filename
 
         pagefolder="$HTMLDEST/main/"
         mkdir -p $pagefolder
@@ -311,7 +311,7 @@ for d in input/journal/*/ ; do
         title=${title%".html"}
         title=${title//_/ }    
         
-        pagelink=${filename:12}
+        pagelink=$filename
         
         pagefolder="$HTMLDEST/$dirname/"
         mkdir -p $pagefolder
@@ -342,7 +342,7 @@ for d in input/journal/*/ ; do
         echo "<section>" >> "$pagepath"
         cat "input/journal/$dirname/$postpath" >> "$pagepath"
 
-        echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">>$year/$month/$day</a> posted in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
+        echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">$year/$month/$day</a> | posted in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
         
         echo "</section>" >> "$pagepath"
         # -----------------------------------------
@@ -409,11 +409,11 @@ for d in input/journal/*/ ; do
         title=${title%".html"}
         title=${title//_/ }    
         
-        postlink=${filename:12}
+        postlink=$filename
     
         pagefolder="$HTMLDEST/$dirname/"
         
-        echo "<a href="$postlink">$title</a><br>" >> "$HTMLDEST/$dirname/archive.html" 
+        echo "$year/$month/$day  <a href="$postlink">$title</a><br>" >> "$HTMLDEST/$dirname/archive.html" 
 
         # ----------- generate individual page ----------------------
         echo "<!DOCTYPE html>" >> "$HTMLDEST/$dirname/$postlink"
@@ -430,6 +430,7 @@ for d in input/journal/*/ ; do
         cat input/base/postheader.html >> "$HTMLDEST/$dirname/$postlink"
         echo "<section>" >> "$HTMLDEST/$dirname/$postlink"
         cat input/journal/$dirname/$postpath >> "$HTMLDEST/$dirname/$postlink"
+        echo "<br><br><div style=\"text-align:right\">$year/$month/$day</div>" >>  "$HTMLDEST/$dirname/$postlink"
         echo "</section>" >> "$HTMLDEST/$dirname/$postlink"
         echo "</body></html>" >> "$HTMLDEST/$dirname/$postlink" 
         #sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$dirname/$postlink" 
