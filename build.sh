@@ -92,22 +92,22 @@ done
 cp input/base/style.css $HTMLDEST/style.css
 
 
-# makes the tools page -----------------------------------------------
-echo "<!DOCTYPE html>" >> $HTMLDEST/tools.html
-echo "<html>" >> $HTMLDEST/tools.html
-echo "<head>" >> $HTMLDEST/tools.html
-echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/tools.html
-echo "<title>npisanti.com</title>" >> $HTMLDEST/tools.html
-cat input/base/head.html >> $HTMLDEST/tools.html
+# makes the pages page -----------------------------------------------
+echo "<!DOCTYPE html>" >> $HTMLDEST/more.html
+echo "<html>" >> $HTMLDEST/more.html
+echo "<head>" >> $HTMLDEST/more.html
+echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/more.html
+echo "<title>npisanti.com</title>" >> $HTMLDEST/more.html
+cat input/base/head.html >> $HTMLDEST/more.html
 echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/index.html
-echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/tools.html
-echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/tools.html
-echo "</head>" >> $HTMLDEST/tools.html
-echo "<body>" >> $HTMLDEST/tools.html
-cat input/base/toolsheader.html >> $HTMLDEST/tools.html
-cat input/base/tools.html >> $HTMLDEST/tools.html
-echo "</body>" >> $HTMLDEST/tools.html
-echo "</html>" >> $HTMLDEST/tools.html
+echo "<meta property=\"og:image:height\" content=\"230\" />" >> $HTMLDEST/more.html
+echo "<meta property=\"og:image:width\" content=\"230\" />" >> $HTMLDEST/more.html
+echo "</head>" >> $HTMLDEST/more.html
+echo "<body>" >> $HTMLDEST/more.html
+cat input/base/moreheader.html >> $HTMLDEST/more.html
+cat input/base/more.html >> $HTMLDEST/more.html
+echo "</body>" >> $HTMLDEST/more.html
+echo "</html>" >> $HTMLDEST/more.html
 
 # generate contact 
 echo "processing contact file..."
@@ -136,20 +136,6 @@ echo "</head>" >> $HTMLDEST/tcatnoc.html
 echo "<body>" >> $HTMLDEST/tcatnoc.html
 cat input/base/tcatnoc.html >> $HTMLDEST/tcatnoc.html
 echo "</body></html>" >> $HTMLDEST/tcatnoc.html
-
-# generate channels page 
-echo "processing channels file..."
-echo "<!DOCTYPE html>" >> $HTMLDEST/channels.html
-echo "<html>" >> $HTMLDEST/channels.html
-echo "<head>" >> $HTMLDEST/channels.html
-echo "<meta charset=\"utf-8\"/>" >> $HTMLDEST/channels.html
-echo "<title>npisanti.com</title>" >> $HTMLDEST/channels.html
-cat input/base/head.html >> $HTMLDEST/channels.html
-echo "<meta property=\"og:image\" content=\"http://npisanti.com/data/$GENERAL_THUMB\" />" >> $HTMLDEST/channels.html
-echo "</head>" >> $HTMLDEST/channels.html
-echo "<body>" >> $HTMLDEST/channels.html
-cat input/base/channels.html >> $HTMLDEST/channels.html
-echo "</body></html>" >> $HTMLDEST/channels.html
 
 echo "---- generating pages ----"
 #generate pages
@@ -277,8 +263,7 @@ echo "tweaking site index..."
 
 cp "$HTMLDEST/main/page1.html" "$HTMLDEST/index.html" 
 sed -i -e "s|href=\"../index.html\"|href=\"index.html\"|g" "$HTMLDEST/index.html" 
-sed -i -e "s|../tools|tools|g" "$HTMLDEST/index.html" 
-sed -i -e "s|../channels|channels|g" "$HTMLDEST/index.html" 
+sed -i -e "s|../more|more|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../contact|contact|g" "$HTMLDEST/index.html" 
 sed -i -e "s|../rss|rss|g" "$HTMLDEST/index.html" 
 sed -i -e "s|href=\"page|href=\"main/page|g" "$HTMLDEST/index.html" 
@@ -515,10 +500,9 @@ do
 done
 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/index.html" 
-sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tools.html" 
+sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/more.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/contact.html" 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/tcatnoc.html" 
-sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/channels.html" 
 
 # absolute urls to RSS 
 sed -i -e "s|SITEROOTPATH|http://npisanti.com|g" "$HTMLDEST/rss.xml" 
