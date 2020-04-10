@@ -73,6 +73,7 @@ cd ~/htdocs/npisanti-nocms
 mkdir -p $HTMLDEST 
 rm -rf $HTMLDEST/journal
 rm -rf $HTMLDEST/main
+rm -rf $HTMLDEST/posts
 
 echo "cleaning folders..."
 for d in input/journal/*/ ; do
@@ -83,6 +84,7 @@ done
 rm $HTMLDEST/*
 
 mkdir -p $HTMLDEST/main
+mkdir -p $HTMLDEST/posts
 
 for d in input/journal/*/ ; do
     dirname=$(echo $d | cut -d '/' -f3)
@@ -188,7 +190,7 @@ do
     
         postpath="input/journal/$line"  
         filename=$(echo $line | cut -d '/' -f2)
-        user=$(echo $line | cut -d '/' -f1)
+        dirname=$(echo $line | cut -d '/' -f1)
         
         #filename=${f##*/}
         year=${filename:0:4}
@@ -199,7 +201,7 @@ do
         title=${title%".html"}
         title=${title//_/ }
         
-        pagelink=$filename
+        pagelink="posts/$filename"
 
         pagefolder="$HTMLDEST/main/"
         mkdir -p $pagefolder
@@ -230,7 +232,7 @@ do
         echo "<section>" >> "$pagepath"
         cat $postpath >> "$pagepath"
 
-        echo "<br><br><div style=\"text-align:right\"><a href=\"../$user/$pagelink\">$year/$month/$day</a> | posted in <a href=\"../$user/index.html\">$user</a></div>" >> "$pagepath"
+        echo "<br><br><div style=\"text-align:right\"><a href=\"../$pagelink\">$year/$month/$day</a> | posted in <a href=\"../$dirname/index.html\">$dirname</a></div>" >> "$pagepath"
         
         echo "</section>" >> "$pagepath"
         # -----------------------------------------
@@ -296,7 +298,7 @@ for d in input/journal/*/ ; do
         title=${title%".html"}
         title=${title//_/ }    
         
-        pagelink=$filename
+        pagelink="posts/$filename"
         
         pagefolder="$HTMLDEST/$dirname/"
         mkdir -p $pagefolder
@@ -327,7 +329,7 @@ for d in input/journal/*/ ; do
         echo "<section>" >> "$pagepath"
         cat "input/journal/$dirname/$postpath" >> "$pagepath"
 
-        echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">$year/$month/$day</a> | posted in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
+        echo "<br><br><div style="text-align:right"><a href="../$pagelink">$year/$month/$day</a> | posted in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
         
         echo "</section>" >> "$pagepath"
         # -----------------------------------------
@@ -394,33 +396,33 @@ for d in input/journal/*/ ; do
         title=${title%".html"}
         title=${title//_/ }    
         
-        postlink=$filename
+        postlink="posts/$filename"
     
         pagefolder="$HTMLDEST/$dirname/"
         
         echo "$year/$month/$day  <a href="$postlink">$title</a><br>" >> "$HTMLDEST/$dirname/archive.html" 
 
         # ----------- generate individual page ----------------------
-        echo "<!DOCTYPE html>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<html>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<head>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<title>[ $title ]</title>" >> "$HTMLDEST/$dirname/$postlink"
-        cat input/base/head.html >> "$HTMLDEST/$dirname/$postlink"
+        echo "<!DOCTYPE html>" >> "$HTMLDEST/$postlink"
+        echo "<html>" >> "$HTMLDEST/$postlink"
+        echo "<head>" >> "$HTMLDEST/$postlink"
+        echo "<meta charset=\"utf-8\"/>" >> "$HTMLDEST/$postlink"
+        echo "<title>[ $title ]</title>" >> "$HTMLDEST/$postlink"
+        cat input/base/head.html >> "$HTMLDEST/$postlink"
         
-        add_og_image "input/journal/$dirname/$postpath" "$HTMLDEST/$dirname/$postlink"
+        add_og_image "input/journal/$dirname/$postpath" "$HTMLDEST/$postlink"
         
-        echo "</head>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "<body>" >> "$HTMLDEST/$dirname/$postlink"
-        cat input/base/postheader.html >> "$HTMLDEST/$dirname/$postlink"
-        echo "<section>" >> "$HTMLDEST/$dirname/$postlink"
-        cat input/journal/$dirname/$postpath >> "$HTMLDEST/$dirname/$postlink"
-        echo "<br><br><div style=\"text-align:right\">$year/$month/$day</div>" >>  "$HTMLDEST/$dirname/$postlink"
-        echo "</section>" >> "$HTMLDEST/$dirname/$postlink"
-        echo "</body></html>" >> "$HTMLDEST/$dirname/$postlink" 
-        #sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$dirname/$postlink" 
-        sed -i -e "s|HUBUSERNAME|$dirname|g" "$HTMLDEST/$dirname/$postlink"         
-        sed -i -e "s|POSTPAGEURLPLACEHOLDER|page$page.html|g" "$HTMLDEST/$dirname/$postlink"         
+        echo "</head>" >> "$HTMLDEST/$postlink"
+        echo "<body>" >> "$HTMLDEST/$postlink"
+        cat input/base/postheader.html >> "$HTMLDEST/$postlink"
+        echo "<section>" >> "$HTMLDEST/$postlink"
+        cat input/journal/$dirname/$postpath >> "$HTMLDEST/$postlink"
+        echo "<br><br><div style=\"text-align:right\">$year/$month/$day</div>" >>  "$HTMLDEST/$postlink"
+        echo "</section>" >> "$HTMLDEST/$postlink"
+        echo "</body></html>" >> "$HTMLDEST/$postlink" 
+        #sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$postlink" 
+        sed -i -e "s|HUBUSERNAME|$dirname|g" "$HTMLDEST/$postlink"         
+        sed -i -e "s|POSTPAGEURLPLACEHOLDER|page$page.html|g" "$HTMLDEST/$postlink"         
 
         post=$(( $post +1 ))
         if (("$post" == "$POSTPERPAGE")); then 
@@ -445,7 +447,7 @@ do
     
         postpath="input/journal/$line"  
         filename=$(echo $line | cut -d '/' -f2)
-        user=$(echo $line | cut -d '/' -f1)
+        dirname=$(echo $line | cut -d '/' -f1)
         
         #filename=${f##*/}
         year=${filename:0:4}
@@ -456,7 +458,7 @@ do
         title=${title%".html"}
         title=${title//_/ }
         
-        pagelink=${filename:12}
+        pagelink="posts/$filename"
         
         RFC822TIME=$(date --date=$month/$day/$year -R)
 
@@ -466,7 +468,7 @@ do
         cat $postpath >> $HTMLDEST/rss.xml
         echo -e "\t\t\t]]></description>" >> $HTMLDEST/rss.xml
         echo -e "\t\t\t<pubDate>$RFC822TIME</pubDate>" >> $HTMLDEST/rss.xml
-        echo -e "\t\t\t<guid>http://npisanti.com/$user/$pagelink</guid>" >> $HTMLDEST/rss.xml
+        echo -e "\t\t\t<guid>http://npisanti.com/$pagelink</guid>" >> $HTMLDEST/rss.xml
         echo -e "\t\t</item>" >> $HTMLDEST/rss.xml
 
     fi
@@ -497,6 +499,11 @@ done
 for f in $(ls -1 "$HTMLDEST/main" | sort -r)
 do
     sed -i -e "s|SITEROOTPATH|..|g" "$HTMLDEST/main/$f" 
+done
+
+for f in $(ls -1 "$HTMLDEST/posts" | sort -r)
+do
+    sed -i -e "s|SITEROOTPATH|..|g" "$HTMLDEST/posts/$f" 
 done
 
 sed -i -e "s|SITEROOTPATH/||g" "$HTMLDEST/index.html" 

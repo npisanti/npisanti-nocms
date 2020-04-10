@@ -23,16 +23,17 @@ done
 echo "uploading main"
 ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html "~/htdocs/npisanti-nocms/html_output/main/"
 
+echo "uploading posts"
+ncftpput -R -v -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html "~/htdocs/npisanti-nocms/html_output/posts/"
+
 echo "uploading basic pages..."
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/index.html
 
-ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/channels.html
+ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/more.html
 
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/contact.html
 
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/tcatnoc.html
-
-ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/tools.html
 
 ncftpput -u "$ftpuser" -p "$ftppass" ftp.npisanti.com public_html ~/htdocs/npisanti-nocms/html_output/style.css
 
