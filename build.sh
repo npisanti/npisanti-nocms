@@ -244,7 +244,7 @@ do
         echo "<section>" >> "$pagepath"
         cat $postpath >> "$pagepath"
 
-        echo "<br><br><div style=\"text-align:right\"><a href=\"../$user/$pagelink\">posted</a> in <a href=\"../$user/index.html\">$user</a></div>" >> "$pagepath"
+        echo "<br><br><div style=\"text-align:right\"><a href=\"../$user/$pagelink\">$year/$month/$day</a> | posted in <a href=\"../$user/index.html\">$user</a></div>" >> "$pagepath"
         
         echo "</section>" >> "$pagepath"
         # -----------------------------------------
@@ -342,7 +342,7 @@ for d in input/journal/*/ ; do
         echo "<section>" >> "$pagepath"
         cat "input/journal/$dirname/$postpath" >> "$pagepath"
 
-        echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">posted</a> in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
+        echo "<br><br><div style="text-align:right"><a href="../$dirname/$pagelink">>$year/$month/$day</a> posted in <a href="../$dirname/index.html">$dirname</a></div>" >> "$pagepath"
         
         echo "</section>" >> "$pagepath"
         # -----------------------------------------
