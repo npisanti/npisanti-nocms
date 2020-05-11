@@ -21,3 +21,8 @@ for getting the thumbnails:
 ```console
 ffmpeg -i input.mp4 thumb%04d.jpg -hide_banner
 ```
+
+for lofi images (after copying original in lofi folders )
+```console
+mogrify -resize 600x1200 -format jpg *.png && rm *.png
+```

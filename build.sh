@@ -411,19 +411,17 @@ for d in input/journal/*/ ; do
         cat input/base/head.html >> "$HTMLDEST/$postlink"
         
         add_og_image "input/journal/$dirname/$postpath" "$HTMLDEST/$postlink"
-        
         echo "</head>" >> "$HTMLDEST/$postlink"
         echo "<body>" >> "$HTMLDEST/$postlink"
-        cat input/base/postheader.html >> "$HTMLDEST/$postlink"
+        cat input/base/channelheader.html >> "$HTMLDEST/$postlink"
         echo "<section>" >> "$HTMLDEST/$postlink"
         cat input/journal/$dirname/$postpath >> "$HTMLDEST/$postlink"
-        echo "<br><br><div style=\"text-align:right\">$year/$month/$day</div>" >>  "$HTMLDEST/$postlink"
+
+		echo "<br><br><div style="text-align:right"><a href="../$pagelink">$year/$month/$day</a> | posted in <a href="../$dirname/page$page.html">$dirname</a></div>" >> "$HTMLDEST/$postlink"
+
         echo "</section>" >> "$HTMLDEST/$postlink"
         echo "</body></html>" >> "$HTMLDEST/$postlink" 
-        #sed -i -e "s|style.css|../style.css|g" "$HTMLDEST/journal/$postlink" 
-        sed -i -e "s|HUBUSERNAME|$dirname|g" "$HTMLDEST/$postlink"         
-        sed -i -e "s|POSTPAGEURLPLACEHOLDER|page$page.html|g" "$HTMLDEST/$postlink"         
-
+        
         post=$(( $post +1 ))
         if (("$post" == "$POSTPERPAGE")); then 
             post=0
